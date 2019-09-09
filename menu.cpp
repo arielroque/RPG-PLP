@@ -13,8 +13,8 @@ struct JOGADOR {
 
 struct INIMIGO {
     string nome;
-    int vida = 200;
-    int dano = 5;
+    int vida;
+    int dano;
 };
 
 void sleepcp(int milliseconds) {
@@ -33,7 +33,7 @@ void loading() {
         "#       #     # #     # #     #  #  #    ## #     # \n"
         "####### ####### #     # ######  ### #     #  #####  \n"
     );
-    sleepcp(1500);
+    sleepcp(2500);
     system("clear");
 }
 
@@ -67,7 +67,7 @@ void lobo() {
 
 void cavaloMarinho() {
     printf("                     $$$$..\n");
-    printf("                   ed$$$$$$F                      *Seahorse*\n");
+    printf("                   ed$$$$$$F\n");
     printf("                   d$$$$$$$$\n");
     printf("                  ^$$$$$$$$$\n");
     printf("                   $$$$$$$$$$\n");
@@ -98,20 +98,32 @@ void cavaloMarinho() {
     system("clear");
 }
 
+void fase2(struct JOGADOR jogador) {
+    printf("FASE 2...\n\n");
+    cout << "Status do jogador\nNome: " << jogador.nome <<"\nVida: " << jogador.vida << "\nDano: " << jogador.dano << endl;
+    loading();
+    printf("História até o aparecimento de um inimigo qualquer...\n");
+    sleepcp(2500);
+    system("clear");
+    cavaloMarinho();
+    //sleepcp(2500);
+    system("clear");
+}
+
 void fase1(struct JOGADOR jogador) {
     printf("FASE 1...\n\n");
+    cout << "Status do jogador\nNome: " << jogador.nome <<"\nVida: " << jogador.vida << "\nDano: " << jogador.dano << endl;
     loading();
     printf("História até o aparecimento de um inimigo qualquer...\n");
     sleepcp(2500);
     system("clear");
     lobo();
-    cout << "Status do jogador\nNome: " << jogador.nome <<"\nVida: " << jogador.vida << "\nDano: " << jogador.dano << endl;
-    sleepcp(2500);
+    jogador.vida -= 100;
+    //sleepcp(2500);
     system("clear");
-    printf("História até o aparecimento de um inimigo qualquer...\n");
-    sleepcp(2500);
-    system("clear");
-    cavaloMarinho();
+    if (jogador.vida > 0) {
+        fase2(jogador);
+    }
 }
 
 void gameStart(struct JOGADOR jogador) {
