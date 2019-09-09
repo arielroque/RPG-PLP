@@ -11,7 +11,7 @@ struct JOGADOR {
     int dano = 10;
 };
 
-struct inimigo {
+struct INIMIGO {
     string nome;
     int vida = 200;
     int dano = 5;
@@ -37,22 +37,29 @@ void loading() {
     system("clear");
 }
 
-void peixe() {
-    const char * c = "'\'";
+void lobo() {
 
-    printf("       o                 o\n");
-    printf("                  o\n");
-    printf("         o   ______      o\n");
-    printf("           _/  (   %c_\n", c);
-    printf(" _       _/  (       %c_  O\n");
-    printf("| %c_   _/  (   (    0  %c  \n", c);
-    printf("|== %c_/  (   (           | \n", c);
-    printf("|=== _ (   (   (          | \n", c);
-    printf("|==_/ %c_ (   (           | \n", c);
-    printf("|_/     %c_ (   (    %c__/\n", c);
-    printf("          %c_ (      _/\n", c);
-    printf("            |  |___/\n", c);
-    printf("           /__/\n", c);
+    printf("#############################################################\n");
+    printf("###################################################   #######\n");
+    printf("###############################################   /~|   #####\n");
+    printf("############################################   _- `~~~', ####\n");
+    printf("##########################################  _-        )  ####\n");
+    printf("#######################################  _-           |  ####\n");
+    printf("####################################  _-             ;  #####\n");
+    printf("##########################  __---___-               |   #####\n");
+    printf("#######################   _~   ,,                  ;  `,,  ##\n");
+    printf("#####################  _-     ;'                  |  ,'  ; ##\n");
+    printf("###################  _~      '                    `~'   ; ###\n");
+    printf("############   __---;                                 ,' ####\n");
+    printf("########   __~~  ___                                ,' ######\n");
+    printf("#####  _-~~   -~~ _                               ,' ########\n");
+    printf("##### `-_         _                              ; ##########\n");
+    printf("#######  ~~----~~~   ;                          ; ###########\n");
+    printf("#########  /          ;                        ; ############\n");
+    printf("#######  /             ;                      ; #############\n");
+    printf("#####  /                `                    ; ##############\n");
+    printf("###  /                                      ; ###############\n");
+    printf("#                                            ################\n");
 
     sleepcp(2500);
     system("clear");
@@ -97,7 +104,7 @@ void fase1(struct JOGADOR jogador) {
     printf("História até o aparecimento de um inimigo qualquer...\n");
     sleepcp(2500);
     system("clear");
-    peixe();
+    lobo();
     cout << "Status do jogador\nNome: " << jogador.nome <<"\nVida: " << jogador.vida << "\nDano: " << jogador.dano << endl;
     sleepcp(2500);
     system("clear");
@@ -136,16 +143,17 @@ int menu () {
     int opcao;
     cin >> opcao;
     switch (opcao) {
-    case 1:
-        { sleepcp(1000);
+    case 1: {
+        sleepcp(1000);
         string player = nomeDoJogador();
         struct JOGADOR personagem;
         personagem.nome = player;
         cout << "Vamos lá " + player + "!" << endl;
         sleepcp(2000);
         system("clear");
-        gameStart(personagem); }
+        gameStart(personagem);
         break;
+    }
     case 2:
         break;
     case 3:
