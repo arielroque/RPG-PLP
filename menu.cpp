@@ -1,9 +1,7 @@
 #include <bits/stdc++.h>
 #include <time.h>
-
-
+#include "persistence.h"
 using namespace std;
-
 
 struct JOGADOR {
     string nome;
@@ -16,6 +14,7 @@ struct INIMIGO {
     int vida;
     int dano;
 };
+
 
 void sleepcp(int milliseconds) {
     clock_t tempo_final;
@@ -167,6 +166,9 @@ int menu () {
         break;
     }
     case 2:
+        sleepcp(2000);
+        system("clear");
+        showRanking();
         break;
     case 3:
         break;
