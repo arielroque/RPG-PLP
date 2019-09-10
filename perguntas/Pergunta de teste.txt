@@ -1,0 +1,11 @@
+Pergunta de teste
+
+Quem criou o C++?
+
+
+1) Bjarne Stroustrup
+2) Brener
+3) Estrela
+#
+3
+#

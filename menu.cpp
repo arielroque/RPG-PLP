@@ -1,14 +1,15 @@
 #include <bits/stdc++.h>
 #include <time.h>
+#include "quiz.h"
 
 
 using namespace std;
 
 void sleepcp();
-void actionFase1(struct JOGADOR jogador);
+bool actionFase1(struct JOGADOR jogador);
 void fase1(struct JOGADOR jogador);
 void fase2(struct JOGADOR jogador);
-void batalha(struct JOGADOR jogador, struct INIMIGO inimigo, int iniciativa);
+bool batalha(struct JOGADOR jogador, struct INIMIGO inimigo, int iniciativa);
 bool fugir();
 int rolaDado();
 string tentaFugir(bool flag);
@@ -79,17 +80,17 @@ void imperator() {
     printf("\n");                                        
     printf("                      ==(W{==========-      /===-\n");
     printf("                          ||  (.--.)         /===-_---~~~~~~~~~------____\n");
-    printf("                          | \_,|**|,__      |===-~___                _,-' `\n");
-    printf("             -==\        `\ ' `--'   ),    `//~\   ~~~~`---.___.-~~\n");
-    printf("         ______-==|        /`\_. .__/\ \    | |  \           _-~`\n");
-    printf("   __--~~~  ,-/-==\      (   | .  |~~~~|   | |   `\        ,'\n");
-    printf("_-~       /'    |  \     )__/==0==\\<>/   / /      \      /\n");
-printf("  .'        /       |   \      /~\___/~~\/  /' /        \   /'\n");
-printf(" /  ____  /         |    \`\.__/-~~   \  |_/'  /          \/'\n");
+    printf("                          | \\_,|**|,__      |===-~___                _,-' `\n");
+    printf("             -==\\        `\\ ' `--'   ),    `//~\\   ~~~~`---.___.-~~\n");
+    printf("       ______-==|        /`\\_. .__/\\ \\    | |  \\           _-~`\n");
+    printf("   __--~~~  ,-/-==\\      (   | .  |~~~~|   | |  ` \\        ,'\n");
+    printf("_-~       /'    |  \\     )__/==0==\\<>/   / /      \\      /\n");
+printf("  .'        /       |   \\      /~\\__/~~\\/  /' /       \\   /'\n");
+printf(" /  ____  /         |    \\`\\.__/-~~   \\  |_/'  /       \\/'\n");
 printf("/-'~    ~~~~~---__  |     ~-/~         ( )   /'        _--~`\n");
-    printf("              \_|      /        _) | ;  ),   __--~~\n");
-    printf("                '~~--_/      _-~/- |/ \   '-~ \n");
-    printf("               {\__--_/}    /  \_>-|)<__\      \n");
+    printf("             \\_|      /        _) | ;  ),   __--~~\n");
+    printf("                '~~--_/      _-~/- |/ \\   '-~ \n");
+    printf("               {\\_--/}    /  \\_>-|)<__\\      \n");
     printf("               /'   (_/  _-~  | |__>--<__|      |\n");
     printf("              |   _/) )-~     | |__>--<__|      |\n");
     printf("              / /~ ,_/       / /__>---<__/      |\n");
@@ -99,7 +100,7 @@ printf("/-'~    ~~~~~---__  |     ~-/~         ( )   /'        _--~`\n");
     printf("         ,//('(          |__>--<__|     /                  .----_\n");
     printf("        ( ( '))          |__>--<__|    |                 /' _---_~\n");
     printf("     `-)) )) (           |__>--<__|    | -IMPERATOR      /'  /     ~\\`\n");
-    printf("    ,/,'//( (             \__>--<__\    \            /'  //        ||\n");
+    printf("    ,/,'//( (            \\__>--< \\   \\            /'  //        ||\n");
     printf("  ,( ( ((, ))              ~-__>--<_~-_  ~--____---~' _/'/        /'\n");
     printf("`~/  )` ) ,/|                 ~-_~>--<_/-__       __-~ _/\n");
   printf("._-~//( )/ )) `                    ~~-'_/_/ /~~~~~~~__--~\n");
@@ -158,57 +159,54 @@ void fase1(struct JOGADOR jogador) {
     
 	system("clear");
     printf("Inicialmente você se encontra na entrada da cidade de Tristam. A cidade está vazia, de noite, escondido no escuro, uma criatura o observa...\n");
+    sleepcp(3000);
     system("clear");
-
-    actionFase1(jogador);
-
-    sleepcp(1500);
-    system("clear");
-
-    if (jogador.vida > 0) {
+    if (actionFase1(jogador)) {
+        cout << jogador.vida << endl;
         fase2(jogador);
     }
 }
 
 
-void actionFase1(struct JOGADOR jogador) {
+bool actionFase1(struct JOGADOR jogador) {
     int opcao;
     
     struct INIMIGO wolf;
     wolf.tipo = "Bestial";
 
-    cout << "1. Observar criatura mais de perto\n" << endl << "2. Ignorar e seguir em sua jornada" << endl;
+    cout << "1. Observar criatura mais de perto\n" << endl;
     cin >> opcao;
     switch (opcao) {
         case 1:
             int c;
-            printf("A criatura se mostra um lobo selvagem e avança em sua direção");
-            system("clear");
-            sleepcp(2000);
+            printf("A criatura se mostra um lobo selvagem e avança em sua direção\n");
             lobo();
+            sleepcp(3000);
+            system("clear");
             //OPORTUNIDADE DE ESCOLHA ENTRE BATALHAR E FUGIR
 
             cout << "1. Batalhar" << endl << "2. Fugir" << endl;
             cin >> c;
-
+            
             if(c == 1) {
                 //DIRETO PRA BATALHA
                 system("clear");
-                batalha(jogador, wolf, 7);
-                break;
-          
+                return batalha(jogador, wolf, 7);
             } else {
                 bool flag = fugir();
                 //CASO O JOGADOR ESCOLHA FUGIR
                 if(flag == 1) {
-                    tentaFugir(flag);
-                    fase2(jogador); 
+                    cout << tentaFugir(flag) << endl;
+                    return true; 
                 } else {
-                    tentaFugir(flag);
-                    batalha(jogador, wolf, 100);
+                    cout << tentaFugir(flag) << endl;
+                    return batalha(jogador, wolf, 100);
                 }
                 
             }
+            break;
+        default:
+            break;
             
 
             
@@ -249,16 +247,28 @@ void fase2(struct JOGADOR jogador) {
 
 }
 
-void batalha(struct JOGADOR jogador,struct INIMIGO inimigo, int eIniciativa) {
+bool batalha(struct JOGADOR jogador,struct INIMIGO inimigo, int eIniciativa) {
     tipo_inimigo(inimigo);
     int init = rolaDado();
+    cout << init << endl;
     
     bool firstAttack = iniciativa(init, eIniciativa);
-
     if (firstAttack) {
-        //PARTE DO QUIZ E BONIFICAÇÃO
+        // TODO perguntas
+        inimigo.vida -= jogador.dano;
     } else {
-        jogador.vida = jogador.vida - inimigo.dano;
+        jogador.vida -= inimigo.dano;
+    }
+    while (jogador.vida <= 0 && inimigo.vida <= 0) {
+        // PERGUNTAS
+        inimigo.vida -= jogador.dano;
+        jogador.vida -= inimigo.dano;
+        cout << jogador.vida + " " + inimigo.vida << endl;
+    }
+    if (jogador.vida > 0) {
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -269,6 +279,7 @@ bool iniciativa(int iniciativa, int eIniciativa) {
 
 int rolaDado() {
     int dado = (rand() % ( 20 - 1 )) + 1;
+    cout << dado << endl;
     return dado;
 }
 
@@ -294,7 +305,7 @@ void logoMenu() {
 
 bool fugir() {
     int rolagem = rolaDado();
-    return rolagem >= 15;
+    return rolagem >= 17;
 }
 
 string tentaFugir(bool fugiu) {
@@ -341,14 +352,59 @@ int menu () {
 
 int main() {
 
-    logoMenu();
-    while (1) {
-        if (menu() == 0) {
-            sleepcp(1000);
-            system("clear");
-            break;
+    int perguntas;
+    cin>>perguntas;
+    cin.ignore();
+    string titulo;
+    for(int i = 0;i<perguntas;++i){
+        string titulo,enunciado;
+        vector<string> opcoes;
+        int resposta;
+
+        cout<<"Titulo: ";
+        getline(cin,titulo);
+        cout<<endl;
+        cout<<"Enunciado: ";
+        string enunciando = "";
+        while(true){
+            getline(cin,enunciando);
+            if(enunciando[0] == '#') break;
+            enunciado+=enunciando+"\n";
         }
+        cout<<endl;
+
+        for(int j = 1;j<=NUMERO_OPCOES;++j){
+            string input;
+            cout<<"Opcao "<<j<<": ";
+            getline(cin,input);
+            opcoes.push_back("\n"+to_string(j)+") "+input);
+        }
+        cout<<"Resposta: ";
+        cin>>resposta;
+        cin.ignore();
+        cout<<endl;
+        gerarPergunta(titulo,enunciado,opcoes,resposta);
     }
+
+    int resposta = 0;
+    cout<<lerPergunta("Pergunta de teste")<<endl;
+    cin>>resposta;
+
+    if(resposta == getResposta("Pergunta de teste")){
+        cout<<"Acertou!!"<<endl;
+    }else{
+        cout<<"Errou!!"<<endl;
+    }
+
+
+    //logoMenu();
+    //while (1) {
+    //    if (menu() == 0) {
+    //        sleepcp(1000);
+    //        system("clear");
+    //        break;
+    //    }
+   // }
 
     return 0;
 }

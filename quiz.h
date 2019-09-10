@@ -6,21 +6,21 @@
 #include "constantes.h"
 using namespace std;
 
-void gerarPergunta(string titulo,string enunciado,vector<string> opcoes,int resposta){
+void gerarPergunta(string titulo, string enunciado, vector<string> opcoes, int resposta){
 
     /**
     Cria uma pergunta onde o titulo do arquivo eh dado
     Ainda faltam os ajustes quanto a formatacao da epergunta, ate aqui ela so funciona
     **/
 
-    string path = PATHQUIZ+titulo+".txt";
+    string path = PATHQUIZ + titulo + ".txt";
 
     //nao sei se dever vir com o titulo ou nao
-    string content = titulo+"\n";
-    content+="\n"+enunciado+"\n";
+    string content = titulo + "\n";
+    content += "\n" + enunciado + "\n";
 
-    for(int i = 0;i<opcoes.size();++i){
-        content+=opcoes[i];
+    for(int i = 0; i < opcoes.size(); ++i){
+        content += opcoes[i];
     }
 
     /**
