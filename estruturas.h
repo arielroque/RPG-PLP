@@ -4,8 +4,10 @@
 
 typedef struct SCORE
 {
-   char player[10];
-   int value;
+   char jogador[10];
+   int valor;
+   int tempoGasto;
 } SCORE;
+
 
 #endif
