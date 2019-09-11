@@ -433,6 +433,7 @@ int main()
                 break;
             enunciado += enunciando + "\n";
         }
+        
         cout << endl;
 
         for (int j = 1; j <= NUMERO_OPCOES; ++j)
