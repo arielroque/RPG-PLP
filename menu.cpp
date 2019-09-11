@@ -254,7 +254,7 @@ void fase2(struct JOGADOR jogador)
 
     // upgrade nos atributos de jogador
 
-    jogador.dano += 10
+    jogador.dano += 10;
 
     // BONIFICAÇÃO SIMPLES PRA CASO O JOGADOR TENHA ERRADO POUCO OU MUITO
 
@@ -277,7 +277,7 @@ void fase2(struct JOGADOR jogador)
     system("clear");
 }
 
-bool actionFase2(struct JOGADOR Jogador) {
+bool actionFase2(struct JOGADOR jogador) {
 
     struct INIMIGO seaHorse;
     seaHorse.tipo = "Bestial";
@@ -287,7 +287,7 @@ bool actionFase2(struct JOGADOR Jogador) {
 
     int c;
     printf("\n");
-    cavaloMarinho()
+    cavaloMarinho();
 
     sleepcp(3000);
     system("clear");
@@ -318,10 +318,8 @@ bool actionFase2(struct JOGADOR Jogador) {
             return batalha(jogador, seaHorse, 100);
         }
     }
-        break;
-    default:
-        break;
-    }
+       
+    
 }
 
 void tipo_inimigo(struct INIMIGO inimigo)
