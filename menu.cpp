@@ -409,7 +409,6 @@ int menu()
 
 int main()
 {
-    /*
     int perguntas;
     cin >> perguntas;
     cin.ignore();
@@ -464,7 +463,8 @@ int main()
     {
         cout << "Errou!!" << endl;
     }
-     */
+
+    /*
     logoMenu();
 
     while (1) {
@@ -474,6 +474,8 @@ int main()
             break;
         }
      }
+
+     */
 
     return 0;
 }

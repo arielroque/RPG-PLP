@@ -1,0 +1,11 @@
+Funcao
+
+A função gets( ); permite que...
+
+
+1) Armazenar variável do tipo float
+2) Armazenar variável do tipo ROCK
+3) Armazenar variável do tipo char
+#
+3
+#

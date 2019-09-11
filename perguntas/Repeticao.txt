@@ -1,0 +1,11 @@
+Repeticao
+
+São estruturas de repetição:
+
+
+1) CASE;IF;THEN
+2) FOR;WHILE
+3) IF;WHILE;CASE
+#
+2
+#

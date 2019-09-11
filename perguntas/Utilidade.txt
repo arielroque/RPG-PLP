@@ -1,0 +1,11 @@
+Utilidade
+
+Para que serve setbuf(stdin,NULL);
+
+
+1) Bugar a minha vida
+2) Zerar o buffer do teclado
+3) Inserir caracteres especiais
+#
+2
+#
