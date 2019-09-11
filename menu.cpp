@@ -8,6 +8,7 @@ using namespace std;
 
 void sleepcp();
 bool actionFase1(struct JOGADOR jogador);
+bool actionFase2(struct JOGADOR jogador);
 void fase1(struct JOGADOR jogador);
 void fase2(struct JOGADOR jogador);
 bool batalha(struct JOGADOR jogador, struct INIMIGO inimigo, int iniciativa);
@@ -15,6 +16,9 @@ bool fugir();
 int rolaDado();
 string tentaFugir(bool flag);
 bool iniciativa(int iniciativa, int eIniciativa);
+int menu();
+void creditos();
+void gameOver();
 
 struct JOGADOR
 {
@@ -176,6 +180,10 @@ void fase1(struct JOGADOR jogador)
     {
         cout << jogador.vida << endl;
         fase2(jogador);
+    } else {
+        gameOver();
+        cout << "\nVocê morreu na Fase 1... Boa sorte da próxima vez" << endl;
+        sleepcp(3000);
     }
 }
 
@@ -239,13 +247,81 @@ void fase2(struct JOGADOR jogador)
 
     loading();
 
-    printf("História até o aparecimento de um inimigo qualquer...\n");
     sleepcp(2500);
     system("clear");
 
+    printf("Você sobrevive ao ataque do lobo, mas está bastante ferido, por sorte você tem uma poção mágica que recupera um pouco de vida\n");
+
+    // upgrade nos atributos de jogador
+
+    jogador.dano += 10
+
+    // BONIFICAÇÃO SIMPLES PRA CASO O JOGADOR TENHA ERRADO POUCO OU MUITO
+
+    if (jogador.vida >= 120) {
+        jogador.vida += 50;
+    } else if (jogador.vida > 80 && jogador.vida < 120) {
+        jogador.vida += 80;
+    } else {
+        jogador.vida += 50;
+    }
+
+    printf("história aqui os pra encher aquela linguiça né patrão");
+
     cavaloMarinho();
+    
+    system("clear");
+    printf("A batalha está prestes a começar, mas você está dentro da água, você não pode atacar primeiro pois você está na área do inimigo");
+    actionFase2(jogador);
     //sleepcp(2500);
     system("clear");
+}
+
+bool actionFase2(struct JOGADOR Jogador) {
+
+    struct INIMIGO seaHorse;
+    seaHorse.tipo = "Bestial";
+
+    cout << "A criatura mítica avança em você com todas as forças\n"
+         << endl;
+
+    int c;
+    printf("\n");
+    cavaloMarinho()
+
+    sleepcp(3000);
+    system("clear");
+
+    //OPORTUNIDADE DE ESCOLHA ENTRE BATALHAR E FUGIR
+
+    cout << "1. Batalhar" << endl
+            << "2. Fugir" << endl;
+    cin >> c;
+
+    if (c == 1)
+    {
+        system("clear");
+        return batalha(jogador, seaHorse, 100);
+    }
+    else
+    {
+        bool flag = fugir();
+        //CASO O JOGADOR ESCOLHA FUGIR
+        if (flag == 1)
+        {
+            cout << tentaFugir(flag) << endl;
+            return true;
+        }
+        else
+        {
+            cout << tentaFugir(flag) << endl;
+            return batalha(jogador, seaHorse, 100);
+        }
+    }
+        break;
+    default:
+        break;
+    }
 }
 
 void tipo_inimigo(struct INIMIGO inimigo)
@@ -279,13 +355,14 @@ bool batalha(struct JOGADOR jogador, struct INIMIGO inimigo, int eIniciativa)
     bool firstAttack = iniciativa(init, eIniciativa);
     if (firstAttack)
     {
-        // TODO perguntas
+        
         inimigo.vida -= jogador.dano;
     }
     else
     {
         jogador.vida -= inimigo.dano;
     }
+
     while (jogador.vida <= 0 && inimigo.vida <= 0)
     {
         // PERGUNTAS
@@ -303,6 +380,7 @@ bool batalha(struct JOGADOR jogador, struct INIMIGO inimigo, int eIniciativa)
     }
 }
 
+
 bool iniciativa(int iniciativa, int eIniciativa)
 {
     return iniciativa > eIniciativa;
@@ -310,7 +388,7 @@ bool iniciativa(int iniciativa, int eIniciativa)
 
 int rolaDado()
 {
-    int dado = (rand() % (20 - 1)) + 1;
+    int dado = (rand() % (20)) + 1;
     cout << dado << endl;
     return dado;
 }
@@ -346,9 +424,9 @@ bool fugir()
 
 string tentaFugir(bool fugiu)
 {
-    string str = "Você tenta fugir e... ";
+    string str = "\nVocê tenta fugir e... ";
 
-    (fugiu) ? str += "Escapou !" : str += "Não conseguiu ! O monstro irá usar essa brecha como oportunidade.";
+    (fugiu) ? str += "Escapou !\n" : str += "Não conseguiu ! O monstro irá usar essa brecha como oportunidade.\n";
 
     return str;
 }
@@ -383,15 +461,15 @@ int menu()
         printf("|      JOGADOR       |        SCORE       |   TEMPO DE JOGO    |\n");
         printf("+--------------------------------------------------------------+\n");
 
-        mostrarRanking();
 
         printf("+--------------------------------------------------------------+\n");
 
         sleepcp(6000);
         system("clear");
-
         break;
     case 3:
+        creditos();
+        sleepcp(4000);
         break;
     case 0:
         break;
@@ -407,7 +485,67 @@ int menu()
     return opcao;
 }
 
-int main()
+
+
+void creditos() {
+    logoMenu();
+    system("clear");
+
+     vector<string> equipe{"Integrantes:\n\n", "Brener Quevedo\n", "Matheus Justino\n", "Ariel Roque\n", "Igor Lima\n\n"};
+
+    for (unsigned i = 0; i < equipe.size(); i++) {
+        cout << equipe[i];
+        sleepcp(400);
+    }
+    sleepcp(4000);
+
+    system("clear");
+
+}
+
+
+void gameOver() {
+
+    printf(" ▄████  ▄▄▄       ███▄ ▄███▓▓█████     ▒█████   ██▒   █▓▓█████  ██▀███\n");  
+    sleepcp(300);
+    printf(" ██▒ ▀█▒▒████▄    ▓██▒▀█▀ ██▒▓█   ▀    ▒██▒  ██▒▓██░   █▒▓█   ▀ ▓██ ▒ ██▒\n");
+    sleepcp(300);
+    printf("▒██░▄▄▄░▒██  ▀█▄  ▓██    ▓██░▒███      ▒██░  ██▒ ▓██  █▒░▒███   ▓██ ░▄█ ▒\n");
+    sleepcp(300);
+    printf("░▓█  ██▓░██▄▄▄▄██ ▒██    ▒██ ▒▓█  ▄    ▒██   ██░  ▒██ █░░▒▓█  ▄ ▒██▀▀█▄\n");  
+    sleepcp(300);
+    printf("░▒▓███▀▒ ▓█   ▓██▒▒██▒   ░██▒░▒████▒   ░ ████▓▒░   ▒▀█░  ░▒████▒░██▓ ▒██▒\n");
+    sleepcp(300);
+    printf(" ░▒   ▒  ▒▒   ▓▒█░░ ▒░   ░  ░░░ ▒░ ░   ░ ▒░▒░▒░    ░ ▐░  ░░ ▒░ ░░ ▒▓ ░▒▓░\n");
+    sleepcp(300);
+    printf("  ░   ░   ▒   ▒▒ ░░  ░      ░ ░ ░  ░     ░ ▒ ▒░    ░ ░░   ░ ░  ░  ░▒ ░ ▒░\n");
+    sleepcp(300);
+    printf("░ ░   ░   ░   ▒   ░      ░      ░      ░ ░ ░ ▒       ░░     ░     ░░   ░ \n");
+    sleepcp(300);
+    printf("      ░       ░  ░       ░      ░  ░       ░ ░        ░     ░  ░   ░     \n");
+    sleepcp(300);
+    printf("                                                      ░                \n");
+}
+
+
+int main() {
+   
+    logoMenu();
+
+    while (1) {
+        if (menu() == 0) {
+            sleepcp(1000);
+            system("clear");
+            break;
+        }
+     }
+
+     
+
+}
+
+
+int perguntas()
 {
     int perguntas;
     cin >> perguntas;
@@ -465,18 +603,9 @@ int main()
         cout << "Errou!!" << endl;
     }
 
-    /*
-    logoMenu();
 
-    while (1) {
-        if (menu() == 0) {
-            sleepcp(1000);
-            system("clear");
-            break;
-        }
-     }
-
-     */
 
     return 0;
 }
+
+

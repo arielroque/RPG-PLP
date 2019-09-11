@@ -1,11 +1,11 @@
 Utilidade
 
-Para que serve setbuf(stdin,NULL);
+Para que serve setbuf(stdin,NULL); ?
 
 
-1) Bugar a minha vida
+1) Modificar atributos de um objeto
 2) Zerar o buffer do teclado
-3) Inserir caracteres especiais
+3) Permitir a entrada de caracteres especiais
 #
 2
 #

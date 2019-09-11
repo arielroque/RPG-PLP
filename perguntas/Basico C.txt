@@ -3,8 +3,8 @@ Basico C
 Qual a função principal na linguagem de programacao C ?
 
 
-1) Maim
-2) Nain
+1) void
+2) include
 3) main
 #
 3

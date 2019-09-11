@@ -3,8 +3,8 @@ Funcao
 A função gets( ); permite que...
 
 
-1) Armazenar variável do tipo float
-2) Armazenar variável do tipo ROCK
+1) Função de entrada de um Float
+2) Acessar atributos de um objeto
 3) Armazenar variável do tipo char
 #
 3

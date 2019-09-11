@@ -1,0 +1,11 @@
+Tipagem
+
+Qual a tipagem da linguagem C ?
+
+
+1) Forte e Dinâmica
+2) Fraca e Estática
+3) Fraca e Dinâmica
+#
+1
+#

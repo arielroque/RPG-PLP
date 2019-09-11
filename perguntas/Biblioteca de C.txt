@@ -3,9 +3,9 @@ Biblioteca de C
 A biblioteca studio.h é responsável por?
 
 
-1) Funções de entrada, somente
-2) Funções de entradas e saídas
-3) Serve para nada!
+1) Estrutura de dados
+2) Funções de entrada e saída
+3) Compilar o código para uma linguagem intermediária
 #
 2
 #

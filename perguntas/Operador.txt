@@ -3,9 +3,9 @@ Operador
 O que significa o seguinte símbolo && ?
 
 
-1) OU
-2) CARRINHO DE ROLIMÃ
-3) E
+1) OU 
+2) AND
+3) COMPLEMENTO BINÁRIO
 #
-3
+2
 #
