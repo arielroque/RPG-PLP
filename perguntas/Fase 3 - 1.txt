@@ -1,6 +1,7 @@
 Funcao
 
 A função gets( ); permite que...
+#
 
 
 1) Função de entrada de um Float

@@ -1,11 +1,11 @@
-Qual a maneira correta de "printar" uma variável do tipo "long long int"?
 
 Qual a maneira correta de "printar" uma variável do tipo "long long int"?
+#
 
 
 1) printf("%lld",a);
-2) printf("lld,&a);
+2) printf("%lld,&a);
 3) printf("&lld",a);
 #
-1
+2
 #
