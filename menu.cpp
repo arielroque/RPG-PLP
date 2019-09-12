@@ -3,22 +3,26 @@
 #include "quiz.h"
 #include "estruturas.h"
 #include "persistencia.h"
+#include <unistd.h>
+
 
 using namespace std;
 
 void sleepcp();
-bool actionFase1(struct JOGADOR jogador);
-bool actionFase2(struct JOGADOR jogador);
 void fase1(struct JOGADOR jogador);
 void fase2(struct JOGADOR jogador);
-bool batalha(struct JOGADOR jogador, struct INIMIGO inimigo, int iniciativa);
-bool fugir();
-int rolaDado();
-string tentaFugir(bool flag);
-bool iniciativa(int iniciativa, int eIniciativa);
-int menu();
 void creditos();
 void gameOver();
+bool batalha(struct JOGADOR jogador, struct INIMIGO inimigo, int iniciativa);
+bool fugir();
+bool actionFase1(struct JOGADOR jogador);
+bool actionFase2(struct JOGADOR jogador);
+bool iniciativa(int iniciativa, int eIniciativa);
+int rolaDado();
+int menu();
+int tempo;
+string tentaFugir(bool flag);
+
 
 struct JOGADOR
 {
@@ -34,13 +38,23 @@ struct INIMIGO
     int dano;
 };
 
+void *cronometro(void *dados)
+{
+    while (1)
+    {
+        sleep(1);
+        ++tempo;
+        fflush(stdout);
+    }
+    return NULL;
+}
+
 void sleepcp(int milliseconds)
 {
     clock_t tempo_final;
     tempo_final = clock() + milliseconds * CLOCKS_PER_SEC / 1000;
     while (clock() < tempo_final)
-    {
-    }
+    {}
 }
 
 void loading()
@@ -592,6 +606,9 @@ int perguntas()
 int main() {
    
     logoMenu();
+
+    pthread_t thr_id;
+    pthread_create(&thr_id, NULL, cronometro, NULL);
 
     while (1) {
         if (menu() == 0) {
