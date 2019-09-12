@@ -1,0 +1,11 @@
+Switch
+
+Considerando um parâmetro do tipo char e outro do tipo int no switch , qual opção está representa corretamente?
+
+
+1) case a:/case 10:
+2) case 'a':/case '10':
+3) case 'a': case 10:
+#
+3
+#

@@ -525,24 +525,6 @@ void gameOver() {
     printf("                                                      ░                \n");
 }
 
-
-int main() {
-   
-    logoMenu();
-
-    while (1) {
-        if (menu() == 0) {
-            sleepcp(1000);
-            system("clear");
-            break;
-        }
-     }
-
-     
-
-}
-
-
 int perguntas()
 {
     int perguntas;
@@ -605,5 +587,27 @@ int perguntas()
 
     return 0;
 }
+
+
+int main() {
+   
+    logoMenu();
+
+    while (1) {
+        if (menu() == 0) {
+            sleepcp(1000);
+            system("clear");
+            break;
+        }
+     }
+    
+    perguntas();
+
+     
+
+}
+
+
+
 
 

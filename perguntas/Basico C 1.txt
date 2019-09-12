@@ -1,0 +1,11 @@
+Basico 1
+
+Todo programa em "C" DEVE  conter:
+
+
+1) #include<studio.h> e funcao main()
+2) Apenas main()
+3) Não existe obrigação alguma
+#
+2
+#

@@ -1,0 +1,11 @@
+Constantes
+
+Em C/C++ existem uma diretiva para o preprocessador para criar constantes numericas ou strings. Qual das definições abaixo é a correta ?
+
+
+1) #include
+2) #const
+3) #define
+#
+3
+#
