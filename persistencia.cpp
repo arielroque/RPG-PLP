@@ -25,7 +25,7 @@ void checarArquivo(const char arquivo[])
     fclose(file);
 }
 
-void mostrarRanking()
+void getRanking()
 {
     checarArquivo(SCORE_SOURCE);
     file = fopen(SCORE_SOURCE, READ_OPERATION);

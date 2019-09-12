@@ -7,7 +7,7 @@
 void checarArquivo(const char arquivo[]);
 void salvarScore(SCORE s);
 void getScores(SCORE *scores);
-void mostrarRanking();
+void getRanking();
 int comparadorScore(const void *s1, const void *s2);
 
 #endif

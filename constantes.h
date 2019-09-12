@@ -11,5 +11,6 @@
 #define PATHHISTORIA "historia/"
 #define INTRODUCAO "Introducao.txt"
 #define FASE "Fase"
+#define FATORSCORE 20
 
 #endif // DIRETORIOS_H_INCLUDED

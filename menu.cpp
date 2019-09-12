@@ -3,8 +3,8 @@
 #include "quiz.h"
 #include "estruturas.h"
 #include "persistencia.h"
+#include "constantes.h"
 #include <unistd.h>
-
 
 using namespace std;
 
@@ -13,16 +13,20 @@ void fase1(struct JOGADOR jogador);
 void fase2(struct JOGADOR jogador);
 void creditos();
 void gameOver();
+
 bool batalha(struct JOGADOR jogador, struct INIMIGO inimigo, int iniciativa);
 bool fugir();
 bool actionFase1(struct JOGADOR jogador);
 bool actionFase2(struct JOGADOR jogador);
 bool iniciativa(int iniciativa, int eIniciativa);
+
 int rolaDado();
 int menu();
 int tempo;
+
 string tentaFugir(bool flag);
 
+pthread_t thr_id;
 
 struct JOGADOR
 {
@@ -37,6 +41,15 @@ struct INIMIGO
     int vida;
     int dano;
 };
+
+struct JOGADOR personagem;
+
+void salvarScoreJogador()
+{
+    int score = FATORSCORE * tempo;
+    SCORE s = {"oi", score, tempo};
+    salvarScore(s);
+}
 
 void *cronometro(void *dados)
 {
@@ -54,7 +67,8 @@ void sleepcp(int milliseconds)
     clock_t tempo_final;
     tempo_final = clock() + milliseconds * CLOCKS_PER_SEC / 1000;
     while (clock() < tempo_final)
-    {}
+    {
+    }
 }
 
 void loading()
@@ -70,6 +84,24 @@ void loading()
     sleepcp(2500);
     system("clear");
 }
+
+void mostrarRanking()
+{
+    loading();
+
+    printf("                          RANKING TOP 5                         \n");
+    printf("+--------------------------------------------------------------+\n");
+    printf("|      JOGADOR       |        SCORE       |   TEMPO DE JOGO    |\n");
+    printf("+--------------------------------------------------------------+\n");
+
+    getRanking();
+
+    printf("+--------------------------------------------------------------+\n");
+
+    sleepcp(6000);
+    system("clear");
+}
+
 
 void lobo()
 {
@@ -193,11 +225,27 @@ void fase1(struct JOGADOR jogador)
     if (actionFase1(jogador))
     {
         cout << jogador.vida << endl;
-        fase2(jogador);
-    } else {
+        
+        pthread_cancel(thr_id);
+        salvarScoreJogador();
+
+        mostrarRanking();
+
+        //fase2(jogador);
+
+    }
+    else
+    {
         gameOver();
         cout << "\nVocê morreu na Fase 1... Boa sorte da próxima vez" << endl;
         sleepcp(3000);
+
+        pthread_cancel(thr_id);
+        salvarScoreJogador();
+
+        mostrarRanking();
+
+        menu();
     }
 }
 
@@ -272,18 +320,23 @@ void fase2(struct JOGADOR jogador)
 
     // BONIFICAÇÃO SIMPLES PRA CASO O JOGADOR TENHA ERRADO POUCO OU MUITO
 
-    if (jogador.vida >= 120) {
+    if (jogador.vida >= 120)
+    {
         jogador.vida += 50;
-    } else if (jogador.vida > 80 && jogador.vida < 120) {
+    }
+    else if (jogador.vida > 80 && jogador.vida < 120)
+    {
         jogador.vida += 80;
-    } else {
+    }
+    else
+    {
         jogador.vida += 50;
     }
 
     printf("história aqui os pra encher aquela linguiça né patrão");
 
     cavaloMarinho();
-    
+
     system("clear");
     printf("A batalha está prestes a começar, mas você está dentro da água, você não pode atacar primeiro pois você está na área do inimigo");
     actionFase2(jogador);
@@ -291,7 +344,8 @@ void fase2(struct JOGADOR jogador)
     system("clear");
 }
 
-bool actionFase2(struct JOGADOR jogador) {
+bool actionFase2(struct JOGADOR jogador)
+{
 
     struct INIMIGO seaHorse;
     seaHorse.tipo = "Bestial";
@@ -309,7 +363,7 @@ bool actionFase2(struct JOGADOR jogador) {
     //OPORTUNIDADE DE ESCOLHA ENTRE BATALHAR E FUGIR
 
     cout << "1. Batalhar" << endl
-            << "2. Fugir" << endl;
+         << "2. Fugir" << endl;
     cin >> c;
 
     if (c == 1)
@@ -332,8 +386,6 @@ bool actionFase2(struct JOGADOR jogador) {
             return batalha(jogador, seaHorse, 100);
         }
     }
-       
-    
 }
 
 void tipo_inimigo(struct INIMIGO inimigo)
@@ -367,7 +419,7 @@ bool batalha(struct JOGADOR jogador, struct INIMIGO inimigo, int eIniciativa)
     bool firstAttack = iniciativa(init, eIniciativa);
     if (firstAttack)
     {
-        
+
         inimigo.vida -= jogador.dano;
     }
     else
@@ -391,7 +443,6 @@ bool batalha(struct JOGADOR jogador, struct INIMIGO inimigo, int eIniciativa)
         return false;
     }
 }
-
 
 bool iniciativa(int iniciativa, int eIniciativa)
 {
@@ -455,7 +506,6 @@ int menu()
     {
         sleepcp(1000);
         string playerName = nomeDoJogador();
-        struct JOGADOR personagem;
         personagem.nome = playerName;
 
         cout << "Vamos lá " + playerName + "!" << endl;
@@ -466,19 +516,9 @@ int menu()
         break;
     }
     case 2:
-        loading();
-
-        printf("                          RANKING TOP 5                         \n");
-        printf("+--------------------------------------------------------------+\n");
-        printf("|      JOGADOR       |        SCORE       |   TEMPO DE JOGO    |\n");
-        printf("+--------------------------------------------------------------+\n");
-
-
-        printf("+--------------------------------------------------------------+\n");
-
-        sleepcp(6000);
-        system("clear");
+        mostrarRanking();
         break;
+
     case 3:
         creditos();
         sleepcp(4000);
@@ -497,34 +537,33 @@ int menu()
     return opcao;
 }
 
-
-
-void creditos() {
+void creditos()
+{
     logoMenu();
     system("clear");
 
-     vector<string> equipe{"Integrantes:\n\n", "Brener Quevedo\n", "Matheus Justino\n", "Ariel Roque\n", "Igor Lima\n\n"};
+    vector<string> equipe{"Integrantes:\n\n", "Brener Quevedo\n", "Matheus Justino\n", "Ariel Roque\n", "Igor Lima\n\n"};
 
-    for (unsigned i = 0; i < equipe.size(); i++) {
+    for (unsigned i = 0; i < equipe.size(); i++)
+    {
         cout << equipe[i];
         sleepcp(400);
     }
     sleepcp(4000);
 
     system("clear");
-
 }
 
+void gameOver()
+{
 
-void gameOver() {
-
-    printf(" ▄████  ▄▄▄       ███▄ ▄███▓▓█████     ▒█████   ██▒   █▓▓█████  ██▀███\n");  
+    printf(" ▄████  ▄▄▄       ███▄ ▄███▓▓█████     ▒█████   ██▒   █▓▓█████  ██▀███\n");
     sleepcp(300);
     printf(" ██▒ ▀█▒▒████▄    ▓██▒▀█▀ ██▒▓█   ▀    ▒██▒  ██▒▓██░   █▒▓█   ▀ ▓██ ▒ ██▒\n");
     sleepcp(300);
     printf("▒██░▄▄▄░▒██  ▀█▄  ▓██    ▓██░▒███      ▒██░  ██▒ ▓██  █▒░▒███   ▓██ ░▄█ ▒\n");
     sleepcp(300);
-    printf("░▓█  ██▓░██▄▄▄▄██ ▒██    ▒██ ▒▓█  ▄    ▒██   ██░  ▒██ █░░▒▓█  ▄ ▒██▀▀█▄\n");  
+    printf("░▓█  ██▓░██▄▄▄▄██ ▒██    ▒██ ▒▓█  ▄    ▒██   ██░  ▒██ █░░▒▓█  ▄ ▒██▀▀█▄\n");
     sleepcp(300);
     printf("░▒▓███▀▒ ▓█   ▓██▒▒██▒   ░██▒░▒████▒   ░ ████▓▒░   ▒▀█░  ░▒████▒░██▓ ▒██▒\n");
     sleepcp(300);
@@ -565,7 +604,7 @@ int perguntas()
                 break;
             enunciado += enunciando + "\n";
         }
-        
+
         cout << endl;
 
         for (int j = 1; j <= NUMERO_OPCOES; ++j)
@@ -597,34 +636,25 @@ int perguntas()
         cout << "Errou!!" << endl;
     }
 
-
-
     return 0;
 }
 
+int main()
+{
 
-int main() {
-   
     logoMenu();
 
-    pthread_t thr_id;
     pthread_create(&thr_id, NULL, cronometro, NULL);
 
-    while (1) {
-        if (menu() == 0) {
+    while (1)
+    {
+        if (menu() == 0)
+        {
             sleepcp(1000);
             system("clear");
             break;
         }
-     }
-    
+    }
+
     perguntas();
-
-     
-
 }
-
-
-
-
-

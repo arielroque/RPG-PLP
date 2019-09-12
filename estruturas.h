@@ -1,6 +1,9 @@
 #ifndef STRUCTURES_H
 
 #define STRUCTURES_H
+#include <bits/stdc++.h>
+
+using namespace std;
 
 typedef struct SCORE
 {
