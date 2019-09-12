@@ -16,8 +16,7 @@ void gerarPergunta(string titulo, string enunciado, vector<string> opcoes, int r
     string path = PATHQUIZ + titulo + ".txt";
 
     //nao sei se dever vir com o titulo ou nao
-    string content = titulo + "\n";
-    content += "\n" + enunciado + "\n";
+    string content = "\n" + enunciado + "\n";
 
     for(int i = 0; i < opcoes.size(); ++i){
         content += opcoes[i];
@@ -27,6 +26,7 @@ void gerarPergunta(string titulo, string enunciado, vector<string> opcoes, int r
     Acima eh esperado ter uma funcao que formate a pergunta, caso tenha um gerador.
     **/
 
+    escreverTexto(((string)PATHQUIZ+(string)PATHTITULO),titulo,APPEND);
     escreverTexto(path,content,SOBRESCRITA);
     escreverTexto(path,to_string(resposta),APPEND);
 }
@@ -35,6 +35,8 @@ string lerPergunta(string titulo){
 
     string path = (string)PATHQUIZ+titulo+".txt";
     string retorno = lerArquivo(path,MAXSTEP);
+
+    if(retorno == "") return retorno;
 
     //pop na resposta
     retorno.pop_back();
@@ -53,6 +55,21 @@ int getResposta(string titulo){
     return retorno[retorno.size()-2]-'0';
 }
 
+vector<string> listarPerguntas(){
+
+    vector<string> perguntas;
+
+    int step = 0;
+    string texto = lerTexto(((string)PATHQUIZ+(string)PATHTITULO),step);
+    while(texto!=""){
+        texto.pop_back(); //remove /n
+        perguntas.push_back(texto);
+        texto = lerTexto(((string)PATHQUIZ+(string)PATHTITULO),++step);
+    }
+
+    return perguntas;
+}
+
 /**
 Caso de teste:
 1
@@ -67,11 +84,14 @@ opcao a
 opcao b
 opcao c
 2
+Pergunta de teste
 2
+#
 **/
 
 //testador
 /*
+    cout<<"Numero de perguntas:";
     int perguntas;
     cin>>perguntas;
     cin.ignore();
@@ -106,14 +126,73 @@ opcao c
     }
 
     int resposta = 0;
-    cout<<lerPergunta("Pergunta de teste")<<endl;
-    cin>>resposta;
+    string titulo;
 
-    if(resposta == getResposta("Pergunta de teste")){
-        cout<<"Acertou!!"<<endl;
-    }else{
-        cout<<"Errou!!"<<endl;
+    //Pesquisar uma pergunta especifica até # ser digitado
+    do{
+        cout<<"Titulo da pergunta a ser pesquisada(Escreva # para sair): ";
+        getline(cin,titulo);
+
+        if(titulo != "#"){
+            string content = lerPergunta(titulo);
+            if(content == ""){
+                cout<<"Titulo escrito de forma errada, tente novamente"<<endl;
+            }else{
+                cout<<content<<endl;
+                char resposta;
+                cin>>resposta;
+                if(resposta-'0' == getResposta(titulo)){
+                    cout<<"Acertou!!"<<endl;
+                }else{
+                    cout<<"Errou =/"<<endl;
+                }
+                cin.ignore();
+            }
+
+        }else{
+            cout<<"o/"<<endl;
+        }
+
+    }while(titulo!="#");
+
+*/
+
+/*
+
+    //listar perguntas
+    string titulo;
+
+    vector<string> todasPerguntas = listarPerguntas();
+
+    for(int i = 0;i<todasPerguntas.size();++i){
+
+        titulo = todasPerguntas[i];
+        cout<<"Buscando a pergunta "+titulo+"!!!!"<<endl;
+        //getline(cin,titulo);
+        //cin.ignore();
+
+        if(titulo != "#"){
+            string content = lerPergunta(titulo);
+            if(content == ""){
+                cout<<"Titulo escrito de forma errada, tente novamente"<<endl;
+            }else{
+                cout<<content<<endl;
+                char resposta;
+                cin>>resposta;
+                if(resposta-'0' == getResposta(titulo)){
+                    cout<<"Acertou!!"<<endl;
+                }else{
+                    cout<<"Errou =/"<<endl;
+                }
+            }
+
+        }else{
+            cout<<"o/"<<endl;
+            break;
+        }
+
     }
+
 */
 
 #endif // QUIZ_H_INCLUDED

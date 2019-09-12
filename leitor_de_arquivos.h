@@ -1,7 +1,7 @@
 #ifndef LEITOR_DE_ARQUIVOS_CPP_INCLUDED
 #define LEITOR_DE_ARQUIVOS_CPP_INCLUDED
-#include<fstream>
 #include<bits/stdc++.h>
+#include<fstream>
 #include "constantes.h"
 
 #define SEPARADOR '#'
@@ -22,10 +22,12 @@ while(texto.size()>=1 && texto[0]!='#'){
 
 string lerTexto(string path,int step){
 
-    ifstream file(path);
+    std::ifstream file(path);
 
     string retorno = "",line;
     int cntStep = 0;
+
+    if(!file) return "";
 
     while(getline(file,line)){
         if(line[0] == SEPARADOR){

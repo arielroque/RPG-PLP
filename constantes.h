@@ -7,5 +7,6 @@
 #define PATHTR "testador_text.txt"
 #define PATHQUIZ "perguntas/"
 #define MAXSTEP 1000000
+#define PATHTITULO "titulos.txt"
 
 #endif // DIRETORIOS_H_INCLUDED
