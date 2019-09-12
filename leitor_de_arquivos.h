@@ -63,7 +63,7 @@ string lerArquivo(string path,int maxStep){
 bool escreverTexto(string path,string content,int mode){
 
     /**
-    A vari·vel mode vai ser usada para saber se eh uma operacao
+    A vari√°vel mode vai ser usada para saber se eh uma operacao
     de sobrescrita ou anexo.
     1 - Sobrescrita
     2 - Append
