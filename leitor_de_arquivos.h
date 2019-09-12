@@ -98,4 +98,24 @@ bool escreverTexto(string path,string content,int mode){
     }
 */
 
+/*
+    //escrever historias
+    while(true){
+
+        string titulo;
+        cout<<"Nome do Arquivo: ";
+        getline(cin,titulo);
+        cout<<"Conteudo:"<<endl;
+        string content = "";
+        while(true){
+            string enunciado;
+            getline(cin,enunciado);
+            if(enunciado[0] == '#') break;
+            content+=enunciado+"\n";
+        }
+        content.pop_back();
+        escreverTexto((string)PATHHISTORIA+titulo+".txt",content,SOBRESCRITA);
+    }
+*/
+
 #endif // LEITOR_DE_ARQUIVOS_CPP_INCLUDED

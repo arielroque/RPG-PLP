@@ -8,5 +8,8 @@
 #define PATHQUIZ "perguntas/"
 #define MAXSTEP 1000000
 #define PATHTITULO "titulos.txt"
+#define PATHHISTORIA "historia/"
+#define INTRODUCAO "Introducao.txt"
+#define FASE "Fase"
 
 #endif // DIRETORIOS_H_INCLUDED
