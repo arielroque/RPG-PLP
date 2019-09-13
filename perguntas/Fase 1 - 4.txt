@@ -1,4 +1,3 @@
-Operador
 
 O que significa o seguinte símbolo && ?
 #

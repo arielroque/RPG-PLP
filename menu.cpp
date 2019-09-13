@@ -207,8 +207,128 @@ void cavaloMarinho()
 
 void gameStart()
 {
+
+    //slow_print(lerArquivo("historia/Introducao.txt", MAXSTEP), 30);
+    //sleepcp(4000);
+    system("clear");
     fase1();
 }
+
+void fase3() {
+printf("FASE 3...\n\n");
+
+    cout << "Status do jogador\nNome: " << personagem.nome << "\nVida: " << personagem.vida << "\nDano: " << personagem.dano << "\n"
+         << endl;
+
+    loading();
+    system("clear");
+
+
+
+    personagem.dano += 5;
+
+    // BONIFICAÇÃO SIMPLES PRA CASO O JOGADOR TENHA ERRADO POUCO OU MUITO
+
+    if (personagem.vida >= 120)
+    {
+        personagem.vida += 60;
+    }
+    else if (personagem.vida > 80 && personagem.vida < 120)
+    {
+        personagem.vida += 50;
+    }
+    else
+    {
+        personagem.vida += 80;
+    }
+
+    slow_print(lerArquivo("historia/Fase2-0.txt", MAXSTEP), 50);
+    sleepcp(4000);
+    system("clear");
+
+
+    if (actionFase3()) {
+        slow_print(lerArquivo("historia/Fase2-1.txt", MAXSTEP), 50);
+        sleepcp(4000);
+        pthread_cancel(thr_id);
+        //salvarScoreJogador();
+
+        //mostrarRanking();
+
+        endgame();
+
+    }
+    else
+    {
+        gameOver();
+        slow_print("\nVocê morreu na Fase 3... O vilão venceu", 40);
+        sleepcp(3000);
+
+        pthread_cancel(thr_id);
+        //salvarScoreJogador();
+
+        //mostrarRanking();
+
+        menu();
+    }
+
+
+}
+
+bool actionFase3() {
+
+     int c;
+    imperator();
+    sleepcp(4000);
+    system("clear");
+
+
+    //OPORTUNIDADE DE ESCOLHA ENTRE BATALHAR E FUGIR
+
+    cout << "1. Batalhar" << endl
+         << "2. Fugir" << endl;
+    cin >> c;
+
+    if (c == 1)
+    {
+        //DIRETO PRA BATALHA
+        system("clear");
+        return batalha(personagem, tipo_inimigo("Chefe"), 100);
+    }
+    else
+    {
+        bool flag = fugir();
+        //CASO O JOGADOR ESCOLHA FUGIR
+        if (flag == 1)
+        {
+            cout << tentaFugir(flag) << endl;
+            return true;
+        }
+        else
+        {
+            cout << tentaFugir(flag) << endl;
+            sleepcp(3000);
+            return batalha(personagem, tipo_inimigo("Chefe"), 100);
+        }
+    }
+
+
+}
+
+void endgame() {
+    cout << endl;
+    cout << "██╗   ██╗ ██████╗  ██████╗███████╗    ██╗   ██╗███████╗███╗   ██╗ ██████╗███████╗██╗   ██╗██╗██╗██╗██╗██╗██╗██╗██╗" << endl;
+    cout << "██║   ██║██╔═══██╗██╔════╝██╔════╝    ██║   ██║██╔════╝████╗  ██║██╔════╝██╔════╝██║   ██║██║██║██║██║██║██║██║██║" << endl;
+    cout << "██║   ██║██║   ██║██║     █████╗      ██║   ██║█████╗  ██╔██╗ ██║██║     █████╗  ██║   ██║██║██║██║██║██║██║██║██║" << endl;
+    cout << "╚██╗ ██╔╝██║   ██║██║     ██╔══╝      ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║██║     ██╔══╝  ██║   ██║╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝" << endl;
+    cout << " ╚████╔╝ ╚██████╔╝╚██████╗███████╗     ╚████╔╝ ███████╗██║ ╚████║╚██████╗███████╗╚██████╔╝██╗██╗██╗██╗██╗██╗██╗██╗" << endl;
+    cout << "  ╚═══╝   ╚═════╝  ╚═════╝╚══════╝      ╚═══╝  ╚══════╝╚═╝  ╚═══╝ ╚═════╝╚══════╝ ╚═════╝ ╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝" << endl;
+	cout << endl << endl;
+    sleepcp(5000);
+    creditos();
+}
+
+
 
 void fase1()
 {
@@ -220,8 +340,9 @@ void fase1()
     loading();
 
 
-    if (actionFase1())
-    {
+    if (actionFase1()) {
+        slow_print(lerArquivo("historia/Fase0-1.txt", MAXSTEP), 30);
+        sleepcp(4000);
         pthread_cancel(thr_id);
         //salvarScoreJogador();
 
@@ -247,11 +368,17 @@ void fase1()
 bool actionFase1()
 {
     int c;
-    slow_print("A criatura se mostra um lobo selvagem e avança em sua direção\n", 30);
+    
+    slow_print(lerArquivo("historia/Fase0-0.txt", MAXSTEP), 30);
+    sleepcp(4000);
+    system("clear");
+    
     lobo();
 
     sleepcp(3000);
     system("clear");
+
+
     //OPORTUNIDADE DE ESCOLHA ENTRE BATALHAR E FUGIR
 
     cout << "1. Batalhar" << endl
@@ -287,12 +414,7 @@ void fase2()
     printf("FASE 2...\n\n");
 
     loading();
-    cout << personagem.vida << endl;
-    sleepcp(2500);
     system("clear");
-
-    printf("Você sobrevive ao ataque do lobo, mas está bastante ferido, por sorte você tem uma poção mágica que recupera um pouco de vida\n");
-
     // upgrade nos atributos de jogador
 
     personagem.dano += 10;
@@ -313,12 +435,38 @@ void fase2()
     }
 
     system("clear");
-    printf("A batalha está prestes a começar, mas você está dentro da água, você não pode atacar primeiro pois você está na área do inimigo");
-    cout << personagem.vida << endl;
+    
+    slow_print("A batalha está prestes a começar, mas você está dentro da água, você não pode atacar primeiro pois você está na área do inimigo\n\n", 50);
+    
+    slow_print(lerArquivo("historia/Fase1-0.txt", MAXSTEP), 40);
+
     sleepcp(2500);
-    actionFase2();
-    //sleepcp(2500);
     system("clear");
+
+
+    if (actionFase2()) {
+        pthread_cancel(thr_id);
+        slow_print(lerArquivo("historia/Fase1-1.txt", MAXSTEP), 50);
+
+        //salvarScoreJogador();
+
+        //mostrarRanking();
+
+        fase3();
+    }
+    else
+    {
+        gameOver();
+        slow_print("\nVocê morreu na Fase 2... Não foi dessa vez", 40);
+        sleepcp(3000);
+
+        pthread_cancel(thr_id);
+        //salvarScoreJogador();
+
+        //mostrarRanking();
+
+        menu();
+    }
 }
 
 bool actionFase2()
@@ -330,7 +478,7 @@ bool actionFase2()
     printf("\n");
     cavaloMarinho();
 
-    sleepcp(3000);
+    sleepcp(2000);
     system("clear");
 
     //OPORTUNIDADE DE ESCOLHA ENTRE BATALHAR E FUGIR
@@ -360,6 +508,7 @@ bool actionFase2()
         }
     }
 }
+
 
 bool batalha(struct JOGADOR jogador, struct INIMIGO inimigo, int eIniciativa)
 {

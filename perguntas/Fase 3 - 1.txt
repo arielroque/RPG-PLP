@@ -1,4 +1,4 @@
-Funcao
+
 
 A função gets( ); permite que...
 #

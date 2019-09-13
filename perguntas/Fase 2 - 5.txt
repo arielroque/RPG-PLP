@@ -1,4 +1,3 @@
- Fase 2 - 1
 
 Todo programa em "C" DEVE  conter:
 

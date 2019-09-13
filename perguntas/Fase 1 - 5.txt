@@ -1,4 +1,3 @@
-Array
 
 Num array bidimensional, matriz[3][3], o 1º valor se refere a ? e o 2º se refere a ?
 #

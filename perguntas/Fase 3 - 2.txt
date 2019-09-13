@@ -1,4 +1,3 @@
-Utilidade
 
 Para que serve setbuf(stdin,NULL); ?
 #

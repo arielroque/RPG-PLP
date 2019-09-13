@@ -48,7 +48,7 @@ void salvarScore(SCORE s);
 void gerRanking();
 void mostrarRanking();
 INIMIGO tipo_inimigo(struct INIMIGO inimigo);
-
+void endgame();
 
 
 #endif

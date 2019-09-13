@@ -1,4 +1,3 @@
-Repeticao
 
 São estruturas tipicas de linguagens imperativas:
 #
