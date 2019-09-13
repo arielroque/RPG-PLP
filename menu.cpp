@@ -21,21 +21,25 @@ using std::this_thread::sleep_for;
 int tempo;
 int aux = 0;
 
-vector<string> fases = {"Fase 1 - 1","Fase 1 - 2","Fase 1 - 3","Fase 1 - 4","Fase 1 - 5","Fase 2 - 1","Fase 2 - 2","Fase 2 - 3","Fase 2 - 4","Fase 2 - 5","Fase 3 - 1","Fase 3 - 2","Fase 3 - 3"};
+vector<string> fases = {"Fase 1 - 1", "Fase 1 - 2", "Fase 1 - 3", "Fase 1 - 4", "Fase 1 - 5", "Fase 2 - 1", "Fase 2 - 2", "Fase 2 - 3", "Fase 2 - 4", "Fase 2 - 5", "Fase 3 - 1", "Fase 3 - 2", "Fase 3 - 3"};
 
 pthread_t thr_id;
 
+SCORE pontuacao ;
+
 struct JOGADOR personagem;
 
-/*void salvarScoreJogador()
+void salvarScoreJogador()
 {
     int score = FATORSCORE * tempo;
-    SCORE s = {"oi", score, tempo};
-    salvarScore(s);
-}*/
+    pontuacao.tempoGasto = tempo;
+    pontuacao.valor = score;
+
+    salvarScore(pontuacao);
+}
 
 INIMIGO tipo_inimigo(string inimigoP)
-{   
+{
     struct INIMIGO inimigo;
     if (inimigoP == "Bestial")
     {
@@ -49,7 +53,8 @@ INIMIGO tipo_inimigo(string inimigoP)
         inimigo.dano = 20;
     }
 
-    else if (inimigoP == "Chefe") {
+    else if (inimigoP == "Chefe")
+    {
         inimigo.vida = 230;
         inimigo.dano = 25;
     }
@@ -100,7 +105,7 @@ void mostrarRanking()
     printf("|      JOGADOR       |        SCORE       |   TEMPO DE JOGO    |\n");
     printf("+--------------------------------------------------------------+\n");
 
-    //getRanking();
+    getRanking();
 
     printf("+--------------------------------------------------------------+\n");
 
@@ -207,23 +212,24 @@ void cavaloMarinho()
 
 void gameStart()
 {
-
+     
     //slow_print(lerArquivo("historia/Introducao.txt", MAXSTEP), 30);
     //sleepcp(4000);
+
+    pthread_create(&thr_id, NULL, cronometro, NULL);
     system("clear");
     fase1();
 }
 
-void fase3() {
-printf("FASE 3...\n\n");
+void fase3()
+{
+    printf("FASE 3...\n\n");
 
     cout << "Status do jogador\nNome: " << personagem.nome << "\nVida: " << personagem.vida << "\nDano: " << personagem.dano << "\n"
          << endl;
 
     loading();
     system("clear");
-
-
 
     personagem.dano += 5;
 
@@ -246,17 +252,15 @@ printf("FASE 3...\n\n");
     sleepcp(4000);
     system("clear");
 
-
-    if (actionFase3()) {
+    if (actionFase3())
+    {
         slow_print(lerArquivo("historia/Fase2-1.txt", MAXSTEP), 50);
         sleepcp(4000);
-        pthread_cancel(thr_id);
-        //salvarScoreJogador();
+        salvarScoreJogador();
 
-        //mostrarRanking();
+        mostrarRanking();
 
         endgame();
-
     }
     else
     {
@@ -265,23 +269,21 @@ printf("FASE 3...\n\n");
         sleepcp(3000);
 
         pthread_cancel(thr_id);
-        //salvarScoreJogador();
+        salvarScoreJogador();
 
-        //mostrarRanking();
+        mostrarRanking();
 
         menu();
     }
-
-
 }
 
-bool actionFase3() {
+bool actionFase3()
+{
 
-     int c;
+    int c;
     imperator();
     sleepcp(4000);
     system("clear");
-
 
     //OPORTUNIDADE DE ESCOLHA ENTRE BATALHAR E FUGIR
 
@@ -311,11 +313,10 @@ bool actionFase3() {
             return batalha(personagem, tipo_inimigo("Chefe"), 100);
         }
     }
-
-
 }
 
-void endgame() {
+void endgame()
+{
     cout << endl;
     cout << "██╗   ██╗ ██████╗  ██████╗███████╗    ██╗   ██╗███████╗███╗   ██╗ ██████╗███████╗██╗   ██╗██╗██╗██╗██╗██╗██╗██╗██╗" << endl;
     cout << "██║   ██║██╔═══██╗██╔════╝██╔════╝    ██║   ██║██╔════╝████╗  ██║██╔════╝██╔════╝██║   ██║██║██║██║██║██║██║██║██║" << endl;
@@ -323,12 +324,11 @@ void endgame() {
     cout << "╚██╗ ██╔╝██║   ██║██║     ██╔══╝      ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║██║     ██╔══╝  ██║   ██║╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝" << endl;
     cout << " ╚████╔╝ ╚██████╔╝╚██████╗███████╗     ╚████╔╝ ███████╗██║ ╚████║╚██████╗███████╗╚██████╔╝██╗██╗██╗██╗██╗██╗██╗██╗" << endl;
     cout << "  ╚═══╝   ╚═════╝  ╚═════╝╚══════╝      ╚═══╝  ╚══════╝╚═╝  ╚═══╝ ╚═════╝╚══════╝ ╚═════╝ ╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝" << endl;
-	cout << endl << endl;
+    cout << endl
+         << endl;
     sleepcp(5000);
     creditos();
 }
-
-
 
 void fase1()
 {
@@ -339,14 +339,14 @@ void fase1()
 
     loading();
 
-
-    if (actionFase1()) {
+    if (actionFase1())
+    {
         slow_print(lerArquivo("historia/Fase0-1.txt", MAXSTEP), 30);
         sleepcp(4000);
-        pthread_cancel(thr_id);
-        //salvarScoreJogador();
 
-        //mostrarRanking();
+        salvarScoreJogador();
+
+        mostrarRanking();
 
         fase2();
     }
@@ -357,9 +357,9 @@ void fase1()
         sleepcp(3000);
 
         pthread_cancel(thr_id);
-        //salvarScoreJogador();
+        salvarScoreJogador();
 
-        //mostrarRanking();
+        mostrarRanking();
 
         menu();
     }
@@ -368,16 +368,15 @@ void fase1()
 bool actionFase1()
 {
     int c;
-    
+
     slow_print(lerArquivo("historia/Fase0-0.txt", MAXSTEP), 30);
     sleepcp(4000);
     system("clear");
-    
+
     lobo();
 
     sleepcp(3000);
     system("clear");
-
 
     //OPORTUNIDADE DE ESCOLHA ENTRE BATALHAR E FUGIR
 
@@ -435,22 +434,21 @@ void fase2()
     }
 
     system("clear");
-    
+
     slow_print("A batalha está prestes a começar, mas você está dentro da água, você não pode atacar primeiro pois você está na área do inimigo\n\n", 50);
-    
+
     slow_print(lerArquivo("historia/Fase1-0.txt", MAXSTEP), 40);
 
     sleepcp(2500);
     system("clear");
 
-
-    if (actionFase2()) {
-        pthread_cancel(thr_id);
+    if (actionFase2())
+    {
         slow_print(lerArquivo("historia/Fase1-1.txt", MAXSTEP), 50);
 
-        //salvarScoreJogador();
+        salvarScoreJogador();
 
-        //mostrarRanking();
+        mostrarRanking();
 
         fase3();
     }
@@ -461,9 +459,9 @@ void fase2()
         sleepcp(3000);
 
         pthread_cancel(thr_id);
-        //salvarScoreJogador();
+        salvarScoreJogador();
 
-        //mostrarRanking();
+        mostrarRanking();
 
         menu();
     }
@@ -472,7 +470,8 @@ void fase2()
 bool actionFase2()
 {
 
-    cout << "A criatura mítica avança em você com todas as forças\n\n" << endl;
+    cout << "A criatura mítica avança em você com todas as forças\n\n"
+         << endl;
 
     int c;
     printf("\n");
@@ -509,7 +508,6 @@ bool actionFase2()
     }
 }
 
-
 bool batalha(struct JOGADOR jogador, struct INIMIGO inimigo, int eIniciativa)
 {
     system("clear");
@@ -533,16 +531,18 @@ bool batalha(struct JOGADOR jogador, struct INIMIGO inimigo, int eIniciativa)
         cout << lerPergunta(fases[aux]) << endl;
         cin >> op;
 
-        if(op == getResposta(fases[aux])) {
+        if (op == getResposta(fases[aux]))
+        {
             cout << "RESPOSTA CORRETA! BÔNUS DE ATAQUE ATIVADO!" << endl;
             inimigo.vida -= personagem.dano + 30;
             personagem.vida -= inimigo.dano;
         }
-        else {
+        else
+        {
             cout << "RESPOSTA ERRADA! VOCÊ SOFRERÁ UM POUCO MAIS DE DANO!" << endl;
             inimigo.vida -= personagem.dano;
-            personagem.vida -= inimigo.dano + 10;           
-        }  
+            personagem.vida -= inimigo.dano + 10;
+        }
         aux++;
         cin.ignore();
         cout << "Vida do jogador: " << personagem.vida << " Vida do inimigo: " << inimigo.vida << endl;
@@ -569,17 +569,21 @@ int rolaDado()
     int dado = (rand() % (20)) + 1;
     return dado;
 }
-
-string nomeDoJogador()
+void nomeDoJogador()
 {
     printf("ESCOLHA O NOME DO JOGADOR: ");
-    string nome = "";
-    cin >> nome;
+    cin >> pontuacao.jogador;
+
+    string nome;
+    
+    for(int i = 0; i < 10; i++){
+        nome = nome + pontuacao.jogador[i];
+    }
+
+    personagem.nome = nome;
 
     sleepcp(1000);
     printf("\n");
-
-    return nome;
 }
 
 void logoMenu()
@@ -629,10 +633,9 @@ int menu()
     case 1:
     {
         sleepcp(1000);
-        string playerName = nomeDoJogador();
-        personagem.nome = playerName;
 
-        cout << "Vamos lá " + playerName + "!" << endl;
+        nomeDoJogador();
+        cout << "Vamos lá " << personagem.nome << "!" << endl;
         sleepcp(2000);
         system("clear");
 
@@ -713,8 +716,6 @@ void slow_print(const string &mensagem, unsigned int millis_per_char)
 int main()
 {
     logoMenu();
-
-    pthread_create(&thr_id, NULL, cronometro, NULL);
 
     while (1)
     {
