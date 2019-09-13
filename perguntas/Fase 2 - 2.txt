@@ -1,0 +1,11 @@
+Fase 2 -2
+
+Qual a primeira linguagem de programação imperativa ?
+#
+
+1) Fortran
+2) C
+3) ALGOL-60
+#
+1
+#

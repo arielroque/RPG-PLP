@@ -1,0 +1,11 @@
+Fase 1 - 1
+
+Qual a definição mais apropriada para descrever o paradigma imperativo ?
+#
+
+1) Execução seqüencial baseada em comandos e no armazenamento de dados alterável
+2) Estruturação através de funções que evitam estados e dados mutaveis
+3) Utilização da lógica matemática para resolução de problemas
+#
+2
+#
