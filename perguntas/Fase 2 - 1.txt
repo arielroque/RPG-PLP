@@ -1,0 +1,12 @@
+Repeticao
+
+São estruturas tipicas de linguagens imperativas:
+#
+
+
+1) if;while;switch;for
+2) void;main;for
+3) if;then;else
+#
+1
+#

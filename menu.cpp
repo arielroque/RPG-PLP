@@ -1,13 +1,23 @@
 #include <bits/stdc++.h>
+#include <string>
+#include <thread>
+#include <chrono>
 #include <time.h>
+#include <unistd.h>
 #include "quiz.h"
 #include "estruturas.h"
 #include "persistencia.h"
 #include "constantes.h"
-#include <unistd.h>
 
 using namespace std;
 
+using std::cout;
+using std::flush;
+using std::string;
+using std::chrono::milliseconds;
+using std::this_thread::sleep_for;
+
+void slow_print(const string &, unsigned int);
 void sleepcp();
 void fase1(struct JOGADOR jogador);
 void fase2(struct JOGADOR jogador);
@@ -27,20 +37,6 @@ int tempo;
 string tentaFugir(bool flag);
 
 pthread_t thr_id;
-
-struct JOGADOR
-{
-    string nome;
-    int vida = 150;
-    int dano = 20;
-};
-
-struct INIMIGO
-{
-    string tipo;
-    int vida;
-    int dano;
-};
 
 struct JOGADOR personagem;
 
@@ -102,7 +98,6 @@ void mostrarRanking()
     system("clear");
 }
 
-
 void lobo()
 {
 
@@ -135,9 +130,9 @@ void lobo()
 void imperator()
 {
     printf("\n");
-    printf("                      ==(W{==========-      /===-\n");
+    printf("                        ==(W{==========-      /===-\n");
     printf("                          ||  (.--.)         /===-_---~~~~~~~~~------____\n");
-    printf("                          | \\_,|**|,__      |===-~___                _,-' `\n");
+    printf("                          |\\_,|**|,__      |===-~___                _,-' `\n");
     printf("             -==\\        `\\ ' `--'   ),    `//~\\   ~~~~`---.___.-~~\n");
     printf("       ______-==|        /`\\_. .__/\\ \\    | |  \\           _-~`\n");
     printf("   __--~~~  ,-/-==\\      (   | .  |~~~~|   | |  ` \\        ,'\n");
@@ -208,36 +203,29 @@ void gameStart(struct JOGADOR jogador)
 void fase1(struct JOGADOR jogador)
 {
     printf("FASE 1...\n\n");
+
     cout << "Status do jogador\nNome: " << jogador.nome << "\nVida: " << jogador.vida << "\nDano: " << jogador.dano << "\n"
          << endl;
 
     loading();
-    printf("Você é um guerreiro que está em uma jornada atrás do herói caído Imperator que antes fora um paladino, mas após cometer o crime de matar o rei, tornou-se um algoz\n");
 
-    imperator();
-    sleepcp(3000);
-
-    system("clear");
-    printf("Inicialmente você se encontra na entrada da cidade de Tristam. A cidade está vazia, de noite, escondido no escuro, uma criatura o observa...\n");
-    sleepcp(3000);
-    system("clear");
+    slow_print("historia/Introducao.txt", 30);
 
     if (actionFase1(jogador))
     {
         cout << jogador.vida << endl;
-        
+
         pthread_cancel(thr_id);
         salvarScoreJogador();
 
         mostrarRanking();
 
         //fase2(jogador);
-
     }
     else
     {
         gameOver();
-        cout << "\nVocê morreu na Fase 1... Boa sorte da próxima vez" << endl;
+        slow_print("\nVocê morreu na Fase 1... Boa sorte da próxima vez", 40);
         sleepcp(3000);
 
         pthread_cancel(thr_id);
@@ -251,54 +239,43 @@ void fase1(struct JOGADOR jogador)
 
 bool actionFase1(struct JOGADOR jogador)
 {
-    int opcao;
 
     struct INIMIGO wolf;
     wolf.tipo = "Bestial";
 
-    cout << "1. Observar criatura mais de perto\n"
-         << endl;
-    cin >> opcao;
+    int c;
+    slow_print("A criatura se mostra um lobo selvagem e avança em sua direção\n", 30);
+    lobo();
 
-    switch (opcao)
+    sleepcp(3000);
+    system("clear");
+    //OPORTUNIDADE DE ESCOLHA ENTRE BATALHAR E FUGIR
+
+    cout << "1. Batalhar" << endl
+         << "2. Fugir" << endl;
+    cin >> c;
+
+    if (c == 1)
     {
-    case 1:
-        int c;
-        printf("A criatura se mostra um lobo selvagem e avança em sua direção\n");
-        lobo();
-
-        sleepcp(3000);
+        //DIRETO PRA BATALHA
         system("clear");
-        //OPORTUNIDADE DE ESCOLHA ENTRE BATALHAR E FUGIR
-
-        cout << "1. Batalhar" << endl
-             << "2. Fugir" << endl;
-        cin >> c;
-
-        if (c == 1)
+        return batalha(jogador, wolf, 7);
+    }
+    else
+    {
+        bool flag = fugir();
+        //CASO O JOGADOR ESCOLHA FUGIR
+        if (flag == 1)
         {
-            //DIRETO PRA BATALHA
-            system("clear");
-            return batalha(jogador, wolf, 7);
+            cout << tentaFugir(flag) << endl;
+            return true;
         }
         else
         {
-            bool flag = fugir();
-            //CASO O JOGADOR ESCOLHA FUGIR
-            if (flag == 1)
-            {
-                cout << tentaFugir(flag) << endl;
-                return true;
-            }
-            else
-            {
-                cout << tentaFugir(flag) << endl;
-                return batalha(jogador, wolf, 100);
-            }
+            cout << tentaFugir(flag) << endl;
+            sleepcp(3000);
+            return batalha(jogador, wolf, 100);
         }
-        break;
-    default:
-        break;
     }
 }
 
@@ -332,8 +309,6 @@ void fase2(struct JOGADOR jogador)
     {
         jogador.vida += 50;
     }
-
-    printf("história aqui os pra encher aquela linguiça né patrão");
 
     cavaloMarinho();
 
@@ -429,7 +404,7 @@ bool batalha(struct JOGADOR jogador, struct INIMIGO inimigo, int eIniciativa)
 
     while (jogador.vida <= 0 && inimigo.vida <= 0)
     {
-        // PERGUNTAS
+
         inimigo.vida -= jogador.dano;
         jogador.vida -= inimigo.dano;
         cout << jogador.vida + " " + inimigo.vida << endl;
@@ -497,7 +472,17 @@ string tentaFugir(bool fugiu)
 int menu()
 {
 
-    printf("INICIAR [1]: \nRANKING [2]: \nCREDITOS [3]: \nSAIR[0]: \n");
+    cout << "" << endl;
+    cout << "|-----------------------------------------------------------------------------|" << endl;
+    cout << "|                                 Menu                                        |" << endl;
+    cout << "|                           [1] Iniciar Jogo                                  |" << endl;
+    cout << "|                           [2] Ranking                                       |" << endl;
+    cout << "|                           [3] Créditos                                      |" << endl;
+    cout << "|                           [0] Sair do Jogo                                  |" << endl;
+    cout << "|-----------------------------------------------------------------------------|" << endl;
+    cout << endl
+         << endl;
+
     int opcao;
     cin >> opcao;
     switch (opcao)
@@ -639,9 +624,18 @@ int perguntas()
     return 0;
 }
 
+void slow_print(const string &mensagem, unsigned int millis_per_char)
+{
+    for (const char c : mensagem)
+    {
+        cout << c << flush;
+
+        sleep_for(milliseconds(millis_per_char));
+    }
+}
+
 int main()
 {
-
     logoMenu();
 
     pthread_create(&thr_id, NULL, cronometro, NULL);
@@ -655,6 +649,5 @@ int main()
             break;
         }
     }
-
     perguntas();
 }

@@ -1,6 +1,7 @@
 Utilidade
 
 Para que serve setbuf(stdin,NULL); ?
+#
 
 
 1) Modificar atributos de um objeto

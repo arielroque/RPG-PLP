@@ -1,6 +1,7 @@
-Biblioteca de C
+Fase 1 - 2
 
 A biblioteca studio.h é responsável por?
+#
 
 
 1) Estrutura de dados
