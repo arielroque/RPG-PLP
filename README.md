@@ -7,7 +7,7 @@ RPG PLP é um jogo no estilo RPG  que será desenvolvido nas linguagem de progra
 ## Snapshots :camera:
 
 <img src="https://user-images.githubusercontent.com/17733053/64845370-624b3f80-d5e0-11e9-8e55-bed2ff9e5b0f.png">
-<img src="https://user-images.githubusercontent.com/17733053/64845240-054f8980-d5e0-11e9-9ee7-3dcb49c9dec0.png">
+<img src="https://user-images.githubusercontent.com/17733053/64845594-fa492900-d5e0-11e9-9e23-fcc646634b71.png">
 
 
 
