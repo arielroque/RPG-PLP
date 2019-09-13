@@ -257,9 +257,9 @@ void fase3()
         sleepcp(4000);
         salvarScoreJogador();
 
+        endgame();
         mostrarRanking();
 
-        endgame();
     }
     else
     {
@@ -344,8 +344,6 @@ void fase1()
         sleepcp(4000);
 
         salvarScoreJogador();
-
-        mostrarRanking();
 
         fase2();
     }
@@ -446,8 +444,6 @@ void fase2()
         slow_print(lerArquivo("historia/Fase1-1.txt", MAXSTEP), 50);
 
         salvarScoreJogador();
-
-        mostrarRanking();
 
         fase3();
     }

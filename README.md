@@ -1,5 +1,7 @@
 # RPG PLP  :video_game: :computer:
 
+compilar: g++ constantes.h estruturas.h leitor_de_arquivos.h menu.cpp persistencia.cpp persistencia.h quiz.h -pthread -o menu
+
 Repositório dedicado ao  projeto da disciplina de Paradigmas de Linguagem de Programação (UFCG) 2019.2
 
 ## Projeto  :bookmark_tabs:
