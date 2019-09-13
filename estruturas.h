@@ -12,26 +12,28 @@ typedef struct SCORE
    int tempoGasto;
 } SCORE;
 
- struct JOGADOR
+typedef struct JOGADOR
 {
     string nome;
     int vida = 150;
     int dano = 20;
-};
+} JOGADOR;
 
- struct INIMIGO
+typedef struct INIMIGO
 {
-    string tipo;
     int vida;
     int dano;
-};
+} INIMIGO;
 
 void slow_print(const string&, unsigned int);
 void sleepcp();
-bool actionFase1(struct JOGADOR jogador);
-bool actionFase2(struct JOGADOR jogador);
-void fase1(struct JOGADOR jogador);
-void fase2(struct JOGADOR jogador);
+void gameStart();
+bool actionFase1();
+bool actionFase2();
+bool actionFase3();
+void fase1();
+void fase2();
+void fase3();
 bool batalha(struct JOGADOR jogador, struct INIMIGO inimigo, int iniciativa);
 bool fugir();
 int rolaDado();
@@ -41,6 +43,12 @@ int menu();
 void creditos();
 void gameOver();
 void slow_print(const string&, unsigned int);
+void salvarScoreJogador();
+void salvarScore(SCORE s);
+void gerRanking();
+void mostrarRanking();
+INIMIGO tipo_inimigo(struct INIMIGO inimigo);
+
 
 
 #endif

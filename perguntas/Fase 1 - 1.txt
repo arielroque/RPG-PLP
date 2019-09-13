@@ -7,5 +7,5 @@ Qual a definição mais apropriada para descrever o paradigma imperativo ?
 2) Estruturação através de funções que evitam estados e dados mutaveis
 3) Utilização da lógica matemática para resolução de problemas
 #
-2
+1
 #

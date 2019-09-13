@@ -8,6 +8,7 @@
 #include "estruturas.h"
 #include "persistencia.h"
 #include "constantes.h"
+#include "leitor_de_arquivos.h"
 
 using namespace std;
 
@@ -17,34 +18,43 @@ using std::string;
 using std::chrono::milliseconds;
 using std::this_thread::sleep_for;
 
-void slow_print(const string &, unsigned int);
-void sleepcp();
-void fase1(struct JOGADOR jogador);
-void fase2(struct JOGADOR jogador);
-void creditos();
-void gameOver();
-
-bool batalha(struct JOGADOR jogador, struct INIMIGO inimigo, int iniciativa);
-bool fugir();
-bool actionFase1(struct JOGADOR jogador);
-bool actionFase2(struct JOGADOR jogador);
-bool iniciativa(int iniciativa, int eIniciativa);
-
-int rolaDado();
-int menu();
 int tempo;
+int aux = 0;
 
-string tentaFugir(bool flag);
+vector<string> fases = {"Fase 1 - 1","Fase 1 - 2","Fase 1 - 3","Fase 1 - 4","Fase 1 - 5","Fase 2 - 1","Fase 2 - 2","Fase 2 - 3","Fase 2 - 4","Fase 2 - 5","Fase 3 - 1","Fase 3 - 2","Fase 3 - 3"};
 
 pthread_t thr_id;
 
 struct JOGADOR personagem;
 
-void salvarScoreJogador()
+/*void salvarScoreJogador()
 {
     int score = FATORSCORE * tempo;
     SCORE s = {"oi", score, tempo};
     salvarScore(s);
+}*/
+
+INIMIGO tipo_inimigo(string inimigoP)
+{   
+    struct INIMIGO inimigo;
+    if (inimigoP == "Bestial")
+    {
+        inimigo.vida = 70;
+        inimigo.dano = 15;
+    }
+
+    else if (inimigoP == "Soldado")
+    {
+        inimigo.vida = 110;
+        inimigo.dano = 20;
+    }
+
+    else if (inimigoP == "Chefe") {
+        inimigo.vida = 230;
+        inimigo.dano = 25;
+    }
+
+    return inimigo;
 }
 
 void *cronometro(void *dados)
@@ -90,7 +100,7 @@ void mostrarRanking()
     printf("|      JOGADOR       |        SCORE       |   TEMPO DE JOGO    |\n");
     printf("+--------------------------------------------------------------+\n");
 
-    getRanking();
+    //getRanking();
 
     printf("+--------------------------------------------------------------+\n");
 
@@ -195,32 +205,29 @@ void cavaloMarinho()
     system("clear");
 }
 
-void gameStart(struct JOGADOR jogador)
+void gameStart()
 {
-    fase1(jogador);
+    fase1();
 }
 
-void fase1(struct JOGADOR jogador)
+void fase1()
 {
     printf("FASE 1...\n\n");
 
-    cout << "Status do jogador\nNome: " << jogador.nome << "\nVida: " << jogador.vida << "\nDano: " << jogador.dano << "\n"
+    cout << "Status do jogador\nNome: " << personagem.nome << "\nVida: " << personagem.vida << "\nDano: " << personagem.dano << "\n"
          << endl;
 
     loading();
 
-    slow_print("historia/Introducao.txt", 30);
 
-    if (actionFase1(jogador))
+    if (actionFase1())
     {
-        cout << jogador.vida << endl;
-
         pthread_cancel(thr_id);
-        salvarScoreJogador();
+        //salvarScoreJogador();
 
-        mostrarRanking();
+        //mostrarRanking();
 
-        //fase2(jogador);
+        fase2();
     }
     else
     {
@@ -229,20 +236,16 @@ void fase1(struct JOGADOR jogador)
         sleepcp(3000);
 
         pthread_cancel(thr_id);
-        salvarScoreJogador();
+        //salvarScoreJogador();
 
-        mostrarRanking();
+        //mostrarRanking();
 
         menu();
     }
 }
 
-bool actionFase1(struct JOGADOR jogador)
+bool actionFase1()
 {
-
-    struct INIMIGO wolf;
-    wolf.tipo = "Bestial";
-
     int c;
     slow_print("A criatura se mostra um lobo selvagem e avança em sua direção\n", 30);
     lobo();
@@ -259,7 +262,7 @@ bool actionFase1(struct JOGADOR jogador)
     {
         //DIRETO PRA BATALHA
         system("clear");
-        return batalha(jogador, wolf, 7);
+        return batalha(personagem, tipo_inimigo("Bestial"), 7);
     }
     else
     {
@@ -274,18 +277,17 @@ bool actionFase1(struct JOGADOR jogador)
         {
             cout << tentaFugir(flag) << endl;
             sleepcp(3000);
-            return batalha(jogador, wolf, 100);
+            return batalha(personagem, tipo_inimigo("Bestial"), 100);
         }
     }
 }
 
-void fase2(struct JOGADOR jogador)
+void fase2()
 {
     printf("FASE 2...\n\n");
-    cout << "Status do jogador\nNome: " << jogador.nome << "\nVida: " << jogador.vida << "\nDano: " << jogador.dano << endl;
 
     loading();
-
+    cout << personagem.vida << endl;
     sleepcp(2500);
     system("clear");
 
@@ -293,40 +295,36 @@ void fase2(struct JOGADOR jogador)
 
     // upgrade nos atributos de jogador
 
-    jogador.dano += 10;
+    personagem.dano += 10;
 
     // BONIFICAÇÃO SIMPLES PRA CASO O JOGADOR TENHA ERRADO POUCO OU MUITO
 
-    if (jogador.vida >= 120)
+    if (personagem.vida >= 120)
     {
-        jogador.vida += 50;
+        personagem.vida += 60;
     }
-    else if (jogador.vida > 80 && jogador.vida < 120)
+    else if (personagem.vida > 80 && personagem.vida < 120)
     {
-        jogador.vida += 80;
+        personagem.vida += 50;
     }
     else
     {
-        jogador.vida += 50;
+        personagem.vida += 80;
     }
-
-    cavaloMarinho();
 
     system("clear");
     printf("A batalha está prestes a começar, mas você está dentro da água, você não pode atacar primeiro pois você está na área do inimigo");
-    actionFase2(jogador);
+    cout << personagem.vida << endl;
+    sleepcp(2500);
+    actionFase2();
     //sleepcp(2500);
     system("clear");
 }
 
-bool actionFase2(struct JOGADOR jogador)
+bool actionFase2()
 {
 
-    struct INIMIGO seaHorse;
-    seaHorse.tipo = "Bestial";
-
-    cout << "A criatura mítica avança em você com todas as forças\n"
-         << endl;
+    cout << "A criatura mítica avança em você com todas as forças\n\n" << endl;
 
     int c;
     printf("\n");
@@ -344,7 +342,7 @@ bool actionFase2(struct JOGADOR jogador)
     if (c == 1)
     {
         system("clear");
-        return batalha(jogador, seaHorse, 100);
+        return batalha(personagem, tipo_inimigo("Soldado"), 18);
     }
     else
     {
@@ -358,38 +356,16 @@ bool actionFase2(struct JOGADOR jogador)
         else
         {
             cout << tentaFugir(flag) << endl;
-            return batalha(jogador, seaHorse, 100);
+            return batalha(personagem, tipo_inimigo("Soldado"), 100);
         }
-    }
-}
-
-void tipo_inimigo(struct INIMIGO inimigo)
-{
-    if (inimigo.tipo == "Bestial")
-    {
-        inimigo.vida = 70;
-        inimigo.dano = 15;
-    }
-
-    else if (inimigo.tipo == "Soldado")
-    {
-        inimigo.vida = 110;
-        inimigo.dano = 20;
-    }
-
-    else
-    {
-        inimigo.tipo = "Chefe";
-        inimigo.vida = 230;
-        inimigo.dano = 25;
     }
 }
 
 bool batalha(struct JOGADOR jogador, struct INIMIGO inimigo, int eIniciativa)
 {
-    tipo_inimigo(inimigo);
+    system("clear");
+    cout << "INICIA-SE A BATALHA..." << endl;
     int init = rolaDado();
-    cout << init << endl;
 
     bool firstAttack = iniciativa(init, eIniciativa);
     if (firstAttack)
@@ -399,17 +375,32 @@ bool batalha(struct JOGADOR jogador, struct INIMIGO inimigo, int eIniciativa)
     }
     else
     {
-        jogador.vida -= inimigo.dano;
+        personagem.vida -= inimigo.dano;
     }
 
-    while (jogador.vida <= 0 && inimigo.vida <= 0)
+    while (personagem.vida > 0 && inimigo.vida > 0)
     {
+        int op;
+        cout << lerPergunta(fases[aux]) << endl;
+        cin >> op;
 
-        inimigo.vida -= jogador.dano;
-        jogador.vida -= inimigo.dano;
-        cout << jogador.vida + " " + inimigo.vida << endl;
+        if(op == getResposta(fases[aux])) {
+            cout << "RESPOSTA CORRETA! BÔNUS DE ATAQUE ATIVADO!" << endl;
+            inimigo.vida -= personagem.dano + 30;
+            personagem.vida -= inimigo.dano;
+        }
+        else {
+            cout << "RESPOSTA ERRADA! VOCÊ SOFRERÁ UM POUCO MAIS DE DANO!" << endl;
+            inimigo.vida -= personagem.dano;
+            personagem.vida -= inimigo.dano + 10;           
+        }  
+        aux++;
+        cin.ignore();
+        cout << "Vida do jogador: " << personagem.vida << " Vida do inimigo: " << inimigo.vida << endl;
+        sleepcp(3500);
     }
-    if (jogador.vida > 0)
+    system("clear");
+    if (personagem.vida > 0)
     {
         return true;
     }
@@ -427,7 +418,6 @@ bool iniciativa(int iniciativa, int eIniciativa)
 int rolaDado()
 {
     int dado = (rand() % (20)) + 1;
-    cout << dado << endl;
     return dado;
 }
 
@@ -497,7 +487,7 @@ int menu()
         sleepcp(2000);
         system("clear");
 
-        gameStart(personagem);
+        gameStart();
         break;
     }
     case 2:
@@ -506,7 +496,6 @@ int menu()
 
     case 3:
         creditos();
-        sleepcp(4000);
         break;
     case 0:
         break;
@@ -524,7 +513,6 @@ int menu()
 
 void creditos()
 {
-    logoMenu();
     system("clear");
 
     vector<string> equipe{"Integrantes:\n\n", "Brener Quevedo\n", "Matheus Justino\n", "Ariel Roque\n", "Igor Lima\n\n"};
@@ -534,7 +522,7 @@ void creditos()
         cout << equipe[i];
         sleepcp(400);
     }
-    sleepcp(4000);
+    sleepcp(3000);
 
     system("clear");
 }
@@ -563,67 +551,6 @@ void gameOver()
     printf("                                                      ░                \n");
 }
 
-int perguntas()
-{
-    int perguntas;
-    cin >> perguntas;
-    cin.ignore();
-    string titulo;
-
-    for (int i = 0; i < perguntas; ++i)
-    {
-        string titulo, enunciado;
-        vector<string> opcoes;
-        int resposta;
-
-        cout << "Titulo: ";
-        getline(cin, titulo);
-        cout << endl;
-        cout << "Enunciado: ";
-        string enunciando = "";
-
-        while (true)
-        {
-            getline(cin, enunciando);
-            if (enunciando[0] == '#')
-                break;
-            enunciado += enunciando + "\n";
-        }
-
-        cout << endl;
-
-        for (int j = 1; j <= NUMERO_OPCOES; ++j)
-        {
-            string input;
-            cout << "Opcao " << j << ": ";
-            getline(cin, input);
-            opcoes.push_back("\n" + to_string(j) + ") " + input);
-        }
-        cout << "Resposta: ";
-        cin >> resposta;
-
-        cin.ignore();
-        cout << endl;
-
-        gerarPergunta(titulo, enunciado, opcoes, resposta);
-    }
-
-    int resposta = 0;
-    cout << lerPergunta("Pergunta de teste") << endl;
-    cin >> resposta;
-
-    if (resposta == getResposta("Pergunta de teste"))
-    {
-        cout << "Acertou!!" << endl;
-    }
-    else
-    {
-        cout << "Errou!!" << endl;
-    }
-
-    return 0;
-}
-
 void slow_print(const string &mensagem, unsigned int millis_per_char)
 {
     for (const char c : mensagem)
@@ -649,5 +576,4 @@ int main()
             break;
         }
     }
-    perguntas();
 }
