@@ -9,13 +9,17 @@ zeroHP = 0
 d20 :: Int
 d20 = 20
 
-fugaRealizada :: Int
-fugaRealizada = 12
+sucessoFuga :: Int
+sucessoFuga = 12
+
+hpRestaura :: Int
+hpRestaura = 30
+
 --
 
 -- verifica se foi possível escapar da batalha
 fugiu :: Int -> Bool
-fugiu resultadoFugir = (resultadoFugir >= fugaRealizada)
+fugiu resultadoFugir = (resultadoFugir >= sucessoFuga)
 
 
 tentaFugir :: Personagem -> Inimigos -> IO (Personagem, Inimigos)
@@ -43,6 +47,11 @@ perdeu :: Personagem -> Bool
 perdeu jogador = (hpJogador <= zeroHP)
         where hpJogador = getHP jogador
 
+--Recupera a vida jogador caso ele escolha a opção de descansar na taverna
+recuperaHP :: Personagem -> Int -> Personagem
+recuperaHP jogador hpJogador = do
+    let novoHP = getHP (jogador) + hpJogador
+    putStrLn "VIDA RESTAURADA !" 
 
 mensagemDeBatalha :: Inimigos -> IO()
 mensagemDeBatalha monstro = do
@@ -70,7 +79,7 @@ ataqueMonstro jogador monstro = do
     rolaDado <- rollDice(d20)
     let jogadorDefesa = getDef jogador
         danoMonstro = calculaDanoMonstro monstro rolaDado
-    putStrLn "O monstro irá atacar..."
+    putStrLn "O monstro irá atacar, se prepare..."
     
     if (danoMonstro >= jogadorDefesa) then do
         putStrLn ("O monstro te acerta e causa "++ show danoMonstro ++ " danos a você!")
@@ -79,7 +88,7 @@ ataqueMonstro jogador monstro = do
     
     else do
         putStrLn ("E falha miseravelmente...")
-        auxStartBattle jogador monstro
+        TODO
 
 calculaDanoMonstro :: Inimigos -> Int -> Int
 calculaDanoMonstro monstro rolaDado = monsterDMG + rolaDado

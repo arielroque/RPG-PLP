@@ -1,7 +1,7 @@
 module Util (
   getOption,
   clrScreen,
-  init,
+  getResposta,
   rollDice,
   skip
 ) where
@@ -9,8 +9,8 @@ module Util (
 import qualified System.Process
 import qualified System.Random (randomRIO)
 
-init :: String -> IO String
-init text = do
+getResposta :: String -> IO String
+getResposta text = do
   putStr text
   resposta <- getLine
   return resposta
@@ -24,9 +24,11 @@ clrScreen = do
 --chamada de função para escolha de alternativa, retorna a opção depois
 getOption :: IO Int
 getOption = do
-  putStr "Qual a sua resposta ? "
+  putStr "escolha uma opção \n"
   op <- getLine
-  return $ read op
+  putStrLn op
+  return $ read op   
+
 
 --Rola um dado
 rollDice :: Int -> IO Int
@@ -41,4 +43,20 @@ skip = do
 	putStrLn ""
 	putStr "Pressione [Enter] para continuar"
 	_ <- getLine
+	clrScreen
+
+
+getOpYesNo:: IO String
+getOpYesNo = do
+
+  putStrLn "O que você irá responder? "
+  putStrLn "Sim (digite s)"
+  putStrLn "Não (digite n)"
+  option <- getLine
+  -- $ no lugar de ()
+  return $ (read $ show option :: String)
+
+msgDeErro :: IO Char
+msgDeErro = do
+  putStrLn "Opção inválida. Tente novamente!"
 	clearScreen
