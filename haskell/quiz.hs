@@ -31,7 +31,7 @@ getResposta titulo = do
     let li = lines contents
     return (read (li!!((length li)-2))::Int)
 
-main = do
+{-main = do
     --ler
     {-cont<-getLine::IO String
     s<-readLn::IO Int
@@ -57,4 +57,5 @@ main = do
     {-titulo <- getLine::IO String
     resp<-getResposta titulo
     putStrLn $ (show resp)-}
+    -}
 
