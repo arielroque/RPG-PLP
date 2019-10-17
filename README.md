@@ -8,12 +8,11 @@ RPG PLP é um jogo no estilo RPG  que será desenvolvido nas linguagem de progra
 ## Executar
 
  ### C++
-     > g++ constantes.h estruturas.h leitor_de_arquivos.h menu.cpp persistencia.cpp persistencia.h quiz.h -pthread -o menu
+   >g++ constantes.h estruturas.h leitor_de_arquivos.h menu.cpp persistencia.cpp persistencia.h quiz.h -pthread -o menu
  
  ### Haskell
- 
-     **Dependencia** 
-     > cabal install lens 
+   **Dependencia** 
+   >cabal install lens 
      
      
 
