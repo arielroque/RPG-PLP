@@ -1,0 +1,11 @@
+
+O que significa o Lazy Evaluation presente em Haskell?
+#
+
+
+1) Significa que Haskell não opera com grandes dados
+2) Significa que as funções so são analisadas quando utilizadas
+3) Significa que precisa dividir em varias funções uma ação 
+#
+2
+#

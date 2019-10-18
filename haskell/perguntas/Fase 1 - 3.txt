@@ -1,0 +1,10 @@
+
+É uma característica do paradigma funcional?
+#
+
+1) Reduz os programas em apenas uma sequência
+2) É baseado em funções
+3) Caracterizado por objetos, classes, métodos
+#
+2
+#
