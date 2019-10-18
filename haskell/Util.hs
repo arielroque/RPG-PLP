@@ -8,6 +8,7 @@ module Util (
 
 import qualified System.Process
 import qualified System.Random (randomRIO)
+import System.IO
 
 getResposta :: String -> IO String
 getResposta text = do
@@ -28,7 +29,6 @@ getOption = do
   op <- getLine
   putStrLn op
   return $ read op   
-
 
 --Rola um dado
 rolaDado :: Int -> IO Int

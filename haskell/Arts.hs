@@ -11,10 +11,8 @@ module Arts
 import Control.Concurrent
 import qualified System.Process
 import Ranking
+import Linker
 import System.Exit
-
-
-
 
 --Limpa da tela
 clrScreen :: IO()
@@ -80,11 +78,10 @@ ranking = do
     clrScreen
 
 selecionarOpcao:: String -> IO ()
-selecionarOpcao "1" = do print("Iniciar o Jogo")
+selecionarOpcao "1" = do iniciarJogo
 selecionarOpcao "2" = do ranking
 selecionarOpcao "3" = do print("Créditos")
 selecionarOpcao "0" = do exitWith ExitSuccess
-
 
 menu :: IO()
 menu = do

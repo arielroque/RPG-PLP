@@ -34,4 +34,4 @@ main = do
 
 start :: IO()
 start = do
-     menu
+    menu
