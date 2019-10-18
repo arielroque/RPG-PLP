@@ -1,7 +1,10 @@
+module Ranking(
+  mostrarScore,
+ adicionarScore
+) where
+
 import Data.List
-
 import Data.List.Split
-
 import Control.Lens
 
 comparador :: (Ord a, Ord b) => (a, b) -> (a, b) -> Ordering
@@ -22,7 +25,7 @@ criarTupla (x:xs) (y:ys) z = criarTupla xs ys z++[(x,(y::Int))]
 
 getRanking:: [(String,Int)] -> String
 getRanking (x:xs) | x == ("FLAG",800000000000000) = ""
-getRanking (x:xs) | otherwise = getRanking xs ++ "\n" ++ (x ^. _1) ++ "   " ++ (show (x ^. _2))
+getRanking (x:xs) | otherwise = getRanking xs ++ "\n" ++ (x ^. _1) ++ "                       " ++ (show (x ^. _2))
 
 mostrarScore:: IO ()
 mostrarScore = do
