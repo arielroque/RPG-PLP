@@ -1,0 +1,10 @@
+
+Quais as características do paradigma funcional?
+#
+
+1) Objeto, mensagem
+2) Função, aplicação , avaliação
+3) Estado, atribuição
+#
+2
+#

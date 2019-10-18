@@ -1,0 +1,11 @@
+
+Em qual cálculo a  programação funcional é baseada:
+#
+
+
+1) Cálculo Lambda
+2) Cálculo Matemático
+3) Cálculo Avançado II
+#
+1
+#

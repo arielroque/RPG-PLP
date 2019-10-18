@@ -1,0 +1,12 @@
+
+
+O que é a transparencia referencial presente em Haskell?
+#
+
+
+1) Não produz efeito colateral 
+2) Os tipos são explicitados ao criar a variavel
+3) As funções devem ter o tipo da variavel
+#
+2
+#

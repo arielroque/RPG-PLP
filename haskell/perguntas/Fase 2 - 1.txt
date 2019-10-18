@@ -1,0 +1,11 @@
+
+Qual o nome do compilador de Haskell?
+#
+
+
+1) GCH
+2) GHC
+3) CHG
+#
+2
+#

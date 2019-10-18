@@ -1,0 +1,11 @@
+
+ Qual das seguintes linguagens  é puramente funcional?
+#
+
+
+1) Java
+2) Python
+3) Haskell
+#
+3
+#
