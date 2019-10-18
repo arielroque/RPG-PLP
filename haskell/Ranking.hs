@@ -9,6 +9,7 @@ import Data.List.Split
 
 import Control.Lens
 
+
 comparador :: (Ord a, Ord b) => (a, b) -> (a, b) -> Ordering
 comparador (a1, b1) (a2, b2)
 		| b1 > b2 = GT -- greater 
