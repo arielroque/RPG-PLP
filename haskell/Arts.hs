@@ -1,4 +1,4 @@
-module Player
+module Arts
 (
   loading
   ,msgGameOver
@@ -61,6 +61,7 @@ msgGameOver = do
     putStrLn "                                                      ░                "
     threadDelay 10000000
     clrScreen
+    menu
 
 
 ranking:: IO()
