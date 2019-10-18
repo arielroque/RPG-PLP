@@ -1,0 +1,12 @@
+
+
+O que é uma chamada de cauda?
+#
+
+
+1) Não produz efeito colateral 
+2) A função fica em loop infinito 
+3) Uma função chama outra função como sua última ação 
+#
+3
+#

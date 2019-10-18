@@ -11,6 +11,8 @@ module Arts
 import Control.Concurrent
 import qualified System.Process
 import Ranking
+import System.Exit
+
 
 
 
@@ -67,10 +69,10 @@ msgGameOver = do
 ranking:: IO()
 ranking = do
     clrScreen
-    putStrLn("                              RANKING                          \n");
-    putStrLn("+--------------------------------------------------------------+\n");
-    putStrLn("|      JOGADOR       |        SCORE       |   TEMPO DE JOGO    |\n");
-    putStrLn("+--------------------------------------------------------------+\n");
+    putStrLn("                  RANKING      \n");
+    putStrLn("+-----------------------------------------+\n");
+    putStrLn("|      JOGADOR       |        SCORE       |\n");
+    putStrLn("+-----------------------------------------+\n");
 
     mostrarScore
 
@@ -81,7 +83,7 @@ selecionarOpcao:: String -> IO ()
 selecionarOpcao "1" = do print("Iniciar o Jogo")
 selecionarOpcao "2" = do ranking
 selecionarOpcao "3" = do print("Créditos")
-selecionarOpcao "0" = do print("Ranking")
+selecionarOpcao "0" = do exitWith ExitSuccess
 
 
 menu :: IO()

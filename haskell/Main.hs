@@ -31,3 +31,7 @@ main :: IO ()
 main = do 
     let npc = guerreiro
     main2 npc
+
+start :: IO()
+start = do
+     menu
