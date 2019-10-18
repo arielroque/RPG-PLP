@@ -10,6 +10,8 @@ module Player
 
 import Control.Concurrent
 import qualified System.Process
+import Ranking
+
 
 
 --Limpa da tela
@@ -61,6 +63,26 @@ msgGameOver = do
     clrScreen
 
 
+ranking:: IO()
+ranking = do
+    clrScreen
+    putStrLn("                              RANKING                          \n");
+    putStrLn("+--------------------------------------------------------------+\n");
+    putStrLn("|      JOGADOR       |        SCORE       |   TEMPO DE JOGO    |\n");
+    putStrLn("+--------------------------------------------------------------+\n");
+
+    mostrarScore
+
+    threadDelay 10000000
+    clrScreen
+
+selecionarOpcao:: String -> IO ()
+selecionarOpcao "1" = do print("Iniciar o Jogo")
+selecionarOpcao "2" = do ranking
+selecionarOpcao "3" = do print("Créditos")
+selecionarOpcao "0" = do print("Ranking")
+
+
 menu :: IO()
 menu = do
     putStrLn "|-----------------------------------------------------------------------------|" 
@@ -70,8 +92,10 @@ menu = do
     putStrLn "|                           [3] Créditos                                      |" 
     putStrLn "|                           [0] Sair do Jogo                                  |" 
     putStrLn "|-----------------------------------------------------------------------------|"
-    threadDelay 10000000
-    clrScreen
+
+    opcao <- getLine
+    selecionarOpcao opcao
+
  
 
 loading :: IO()
@@ -92,4 +116,4 @@ loading = do
 
                                                        
 main = do
-    msgGameOver
+    menu
