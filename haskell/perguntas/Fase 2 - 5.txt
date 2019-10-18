@@ -1,0 +1,12 @@
+
+
+Para introduzir uma definição local dentro de uma função em Haskell utiliza-se a expressão:
+#
+
+
+1) let
+2) definition
+3) expression
+#
+1
+#

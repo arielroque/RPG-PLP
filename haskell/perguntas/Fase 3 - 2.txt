@@ -1,0 +1,12 @@
+
+
+São expressões de entrada e saída em Haskell?
+#
+
+
+1) print,cin 
+2) putchar,getLine
+3) Scanner,echo
+#
+2
+#

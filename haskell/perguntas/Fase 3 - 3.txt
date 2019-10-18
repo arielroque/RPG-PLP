@@ -1,0 +1,12 @@
+
+
+Qual a função do construtor do tipo Maybe em Haskell?
+#
+
+
+1) Indica um valor opcional 
+2) Indica um retorno de uma requisição assíncrona
+3) Indica que o dado é nulo
+#
+2
+#
