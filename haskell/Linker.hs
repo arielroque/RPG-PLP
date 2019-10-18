@@ -100,6 +100,11 @@ irParaLagoaGarcas went = do
 
             readShowAndClear arquivoLagoaGarca2
 
+            let boss = magoGelo
+            let resultadoBoss = batalha player boss
+
+            readShowAndClear arquivoLagoaGarca3
+
             escolherCaminhoCidade (concluirFase went 2 [])
 
         else do
