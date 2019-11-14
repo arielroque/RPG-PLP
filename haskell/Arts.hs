@@ -1,4 +1,4 @@
-module Player
+module Arts
 (
   loading
   ,msgGameOver
@@ -10,7 +10,9 @@ module Player
 
 import Control.Concurrent
 import qualified System.Process
-
+import Ranking
+import Linker
+import System.Exit
 
 --Limpa da tela
 clrScreen :: IO()
@@ -59,7 +61,27 @@ msgGameOver = do
     putStrLn "                                                      ░                "
     threadDelay 10000000
     clrScreen
+    menu
 
+
+ranking:: IO()
+ranking = do
+    clrScreen
+    putStrLn("                  RANKING      \n");
+    putStrLn("+-----------------------------------------+\n");
+    putStrLn("|      JOGADOR       |        SCORE       |\n");
+    putStrLn("+-----------------------------------------+\n");
+
+    mostrarScore
+
+    threadDelay 10000000
+    clrScreen
+
+selecionarOpcao:: String -> IO ()
+selecionarOpcao "1" = do iniciarJogo
+selecionarOpcao "2" = do ranking
+selecionarOpcao "3" = do print("Créditos")
+selecionarOpcao "0" = do exitWith ExitSuccess
 
 menu :: IO()
 menu = do
@@ -70,8 +92,10 @@ menu = do
     putStrLn "|                           [3] Créditos                                      |" 
     putStrLn "|                           [0] Sair do Jogo                                  |" 
     putStrLn "|-----------------------------------------------------------------------------|"
-    threadDelay 10000000
-    clrScreen
+
+    opcao <- getLine
+    selecionarOpcao opcao
+
  
 
 loading :: IO()
@@ -92,4 +116,4 @@ loading = do
 
                                                        
 main = do
-    msgGameOver
+    menu

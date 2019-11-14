@@ -1,6 +1,6 @@
 import Inimigos 
 import Personagem 
-import Util
+import Util 
 
 -- constantes 
 zeroHP :: Int
@@ -22,11 +22,11 @@ fugiu :: Int -> Bool
 fugiu resultadoFugir = (resultadoFugir >= sucessoFuga)
 
 
-tentaFugir :: Personagem -> Inimigos -> IO (Personagem, Inimigos)
+tentaFugir :: Personagem -> Inimigos.Monster -> IO (Personagem, Inimigos.Monster)
 tentaFugir jogador monstro = do
     clrScreen
     putStrLn "Você tenta fugir e..."
-    resultadoFugir <- rollDice(d20)
+    resultadoFugir <- rolaDado(d20)
 
     if (fugiu resultadoFugir)
         then do
@@ -38,9 +38,9 @@ tentaFugir jogador monstro = do
 
 
 -- jogador vence, monstro morre
-venceu :: Inimigos -> Bool
+venceu :: Inimigos.Monster -> Bool
 venceu monstro = (hpMonstro <= zeroHP) 
-        where hpMonstro = EgetHp monstro
+        where hpMonstro = eGetHp monstro
 
 -- personagem chegou a 0HP e morreu
 perdeu :: Personagem -> Bool
@@ -53,19 +53,19 @@ recuperaHP jogador hpJogador = do
     let novoHP = getHP (jogador) + hpJogador
     putStrLn "VIDA RESTAURADA !" 
 
-mensagemDeBatalha :: Inimigos -> IO()
+mensagemDeBatalha :: Inimigos.Monster -> IO()
 mensagemDeBatalha monstro = do
-    let nomeMonstro = EgetName (monstro)
+    let nomeMonstro = eGetNome (monstro)
     putStrLn "BATALHA!"
     putStrLn ("Um "++nomeMonstro++" se aproxima!")
 
-mostraVida :: Personagem -> Inimigos -> IO()
+mostraVida :: Personagem -> Inimigos.Monster -> IO()
 mostraVida jogador monstro = do
     let hpJogador = getHP (jogador)
     putStrLn ("Seu HP: "++ show hpJogador)
 
-    let hpMonstro = EgetHp (monstro)
-        monsterName = EgetName (monstro)
+    let hpMonstro = eGetHp (monstro)
+        monsterName = eGetNome (monstro)
 
     putStrLn ("HP do "++monsterName++": "++ show hpMonstro)
     putStrLn("")
@@ -73,48 +73,46 @@ mostraVida jogador monstro = do
 
 
 -- executa um ataque do monstro
-ataqueMonstro :: Personagem -> Inimigos-> IO (Personagem, Inimigos)
+ataqueMonstro :: Personagem -> Inimigos.Monster-> IO (Personagem, Inimigos.Monster)
 ataqueMonstro jogador monstro = do
     
-    rolaDado <- rollDice(d20)
+    rolaDado <- rolaDado(d20)
     let jogadorDefesa = getDef jogador
         danoMonstro = calculaDanoMonstro monstro rolaDado
     putStrLn "O monstro irá atacar, se prepare..."
     
     if (danoMonstro >= jogadorDefesa) then do
         putStrLn ("O monstro te acerta e causa "++ show danoMonstro ++ " danos a você!")
-        let novoJogador = takeDmg danoMonstro jogador
-        jogadorDerrotado novoJogador monstro
+        let novoJogador = takeDmg jogador danoMonstro
+        --jogadorDerrotado novoJogador monstro
     
     else do
         putStrLn ("E falha miseravelmente...")
-        TODO
-
-calculaDanoMonstro :: Inimigos -> Int -> Int
-calculaDanoMonstro monstro rolaDado = monsterDMG + rolaDado
-                where monsterDMG = getDmg Inimigos
+        --TODO
 
 
 -- verifica se o monstro foi derrotado
-monstroDerrotado :: Personagem -> Inimigos -> IO (Personagem, Inimigos)
-monstroDerrotado jogador monstro =
+monstroDerrotado :: Personagem -> Inimigos.Monster -> IO (Personagem, Inimigos.Monster)
+monstroDerrotado jogador monstro = do
     if (venceu monstro) then do
         putStrLn "VOCÊ VENCEU!" 
     else ataqueMonstro jogador monstro
 
-jogadorDerrotado :: Personagem -> Inimigos -> IO (Personagem, Inimigos)
-jogadorDerrotado jogador monstro =
+jogadorDerrotado :: Personagem -> Inimigos.Monster -> IO (Personagem, Inimigos.Monster)
+jogadorDerrotado jogador monstro = do
     if (perdeu jogador) then do
         putStrLn "VOCÊ FOI DERROTADO!"
         --TODO
-    
-    else TODO
+    else do 
+        putStrLn "bla"
+
 
 
 --Dano do monstro
-calculaDanoMonstro :: Inimigos -> Int -> Int
-calculaDanoMonstro monstro rolaDado = danoMonstro + rolaDado
-                where danoMonstro = Monsters.getDmg monstro
+calculaDanoMonstro :: Inimigos.Monster -> Int -> Int
+calculaDanoMonstro monstro rolaDado = do 
+    let danoMonstro = (eGetDmg monstro) + rolaDado
+    return danoMonstro
 
 
 

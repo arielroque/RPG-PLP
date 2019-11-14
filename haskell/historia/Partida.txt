@@ -1,0 +1,12 @@
+Voce chega ao centro da cidade. Varias pessoas entram e saem da area do bazar, outras gritam suas ofertas e sugerem promocoes. O chao eh repleto de pequenos obstaculos como frutas podres, dejetos, pocas de agua e/ou vomito e lixo. Os moradores transitem em pressa e aparentemente sem rumo, sua presenca atrabalha o percurso de algumas pessoas, mas nada tao grave.
+
+Para onde voce vai agora?
+
+0 - Taverna
+1 - Picos de stress
+2 - Estradas da quintura
+3 - Lago das garcas
+4 - Templo dos Pythanos
+5 - Sair do jogo
+
+#

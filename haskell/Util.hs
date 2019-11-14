@@ -2,12 +2,13 @@ module Util (
   getOption,
   clrScreen,
   getResposta,
-  rollDice,
+  rolaDado,
   skip
 ) where
 
 import qualified System.Process
 import qualified System.Random (randomRIO)
+import System.IO
 
 getResposta :: String -> IO String
 getResposta text = do
@@ -29,10 +30,9 @@ getOption = do
   putStrLn op
   return $ read op   
 
-
 --Rola um dado
-rollDice :: Int -> IO Int
-rollDice num = System.Random.randomRIO (1::Int, num)
+rolaDado :: Int -> IO Int
+rolaDado num = System.Random.randomRIO (1::Int, num)
 
 --Pega uma lista de String e passa pra inteiro
 mapStrtoInt :: [String] -> [Int]
@@ -56,7 +56,5 @@ getOpYesNo = do
   -- $ no lugar de ()
   return $ (read $ show option :: String)
 
-msgDeErro :: IO Char
-msgDeErro = do
-  putStrLn "Opção inválida. Tente novamente!"
-	clearScreen
+msgDeErro :: [Char]
+msgDeErro = "Opção inválida. Tente novamente!"

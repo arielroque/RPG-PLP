@@ -6,8 +6,15 @@ Repositório dedicado ao  projeto da disciplina de Paradigmas de Linguagem de Pr
 RPG PLP é um jogo no estilo RPG  que será desenvolvido nas linguagem de programação C++, Haskell e Prolog. Em cada uma dessas linguagens, o jogador será desafiado por inimigos e testes que avaliarão seus conhecimentos a respeito do paradigma trabalhado.
 
 ## Executar
- > g++ constantes.h estruturas.h leitor_de_arquivos.h menu.cpp persistencia.cpp persistencia.h quiz.h -pthread -o menu
 
+ ### C++
+   >g++ constantes.h estruturas.h leitor_de_arquivos.h menu.cpp persistencia.cpp persistencia.h quiz.h -pthread -o menu
+ 
+ ### Haskell
+   **Dependencia** 
+   >cabal install lens 
+     
+     
 
 ## Snapshots :camera:
 

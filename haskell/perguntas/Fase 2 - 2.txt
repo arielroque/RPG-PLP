@@ -1,0 +1,10 @@
+
+Qual o comando em Haskell para mostrar um dado no console?
+#
+
+1) System.out.println()
+2) Cout
+3) putStrLn
+#
+3
+#

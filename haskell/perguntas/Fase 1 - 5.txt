@@ -1,0 +1,11 @@
+
+São tipos básicos em Haskell:
+#
+
+
+1) Bool, Char, String, Int, Integer, Float
+2) Bool, Int, Integer, Float
+3) Char, String
+#
+1
+#
