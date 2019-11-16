@@ -1,9 +1,5 @@
-
 O trecho de codigo "[a,b,c,d] = [a,[b,c,d]].", retorna:
-#
 1) true
 2) false
 3) erro
-#
 2
-#

@@ -1,6 +1,6 @@
 :- initialization(main).
 
-gameOver:- 
+mensagem_derrota:- 
     writeln(" ▄████  ▄▄▄       ███▄ ▄███▓▓█████     ▒█████   ██▒   █▓▓█████  ██▀███")
    
     ,writeln(" ██▒ ▀█▒▒████▄    ▓██▒▀█▀ ██▒▓█   ▀    ▒██▒  ██▒▓██░   █▒▓█   ▀ ▓██ ▒ ██▒")
@@ -21,7 +21,7 @@ gameOver:-
     
     ,writeln("                                                      ░                ").
 
-endGame:- 
+mensagem_vencedor:- 
      writeln("██╗   ██╗ ██████╗  ██████╗███████╗    ██╗   ██╗███████╗███╗   ██╗ ██████╗███████╗██╗   ██╗██╗██╗██╗██╗██╗██╗██╗██╗")
     ,writeln("██║   ██║██╔═══██╗██╔════╝██╔════╝    ██║   ██║██╔════╝████╗  ██║██╔════╝██╔════╝██║   ██║██║██║██║██║██║██║██║██║")
     ,writeln("██║   ██║██║   ██║██║     █████╗      ██║   ██║█████╗  ██╔██╗ ██║██║     █████╗  ██║   ██║██║██║██║██║██║██║██║██║")
@@ -41,12 +41,10 @@ loading:-
          ,writeln("####### ####### #     # ######  ### #     #  #####  ").
 
 
-validarResposta(X,X,"Resposta Correta").
-validarResposta(_,_,"Resposta Incorreta").
+validar_pergunta(X,X,"Resposta Correta").
+validar_pergunta(_,_,"Resposta Incorreta").
 
-#path teste = perguntas/fase1-1.txt
-
-mostrarPergunta(Path):-
+mostrar_pergunta(Path):-
    open(Path,read,Arquivo),
    read_line_to_string(Arquivo,Titulo),
    read_line_to_string(Arquivo,Alternativa1),
@@ -61,8 +59,39 @@ mostrarPergunta(Path):-
    write("Resposta:"),
    read(AtomoResposta),
    atom_string(AtomoResposta,Resposta),
-   validarResposta(Resposta,AlternativaCorreta,Julgamento),
+   validar_pergunta(Resposta,AlternativaCorreta,Julgamento),
    write(Julgamento).
+
+
+iniciar_jogo:-
+    loading,
+    sleep(2),
+    mostrar_pergunta("perguntas/fase1-1.txt").
+
+ranking:-
+    loading,
+    sleep(2),
+    write("Ranking").
+
+creditos:-
+    loading,
+    sleep(2),
+    write("Creditos").
+
+
+selecionar_opcao(1):-
+       iniciar_jogo.
+
+selecionar_opcao(2):-
+       ranking.
+
+selecionar_opcao(3):-
+       creditos.
+
+selecionar_opcao(_):-
+       write("Opção Inválida"),
+       menu.
+ 
 
 menu:-
     writeln("|-----------------------------------------------------------------------------|")
@@ -71,9 +100,14 @@ menu:-
    ,writeln("|                           [2] Ranking                                       |")
    ,writeln("|                           [3] Créditos                                      |")
    ,writeln("|                           [0] Sair do Jogo                                  |")
-   ,writeln("|-----------------------------------------------------------------------------|").           
+   ,writeln("|-----------------------------------------------------------------------------|"),
+   write("Opcao:"),
+   read(Opcao),
+   selecionar_opcao(Opcao).          
 
 main:-
-    loading.
+    loading,
+    sleep(2),
+    menu.
 
 
