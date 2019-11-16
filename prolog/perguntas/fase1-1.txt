@@ -1,0 +1,5 @@
+Na consulta "pai"(_,_), pode-se afirmar:
+1) Os dois _ representam a mesma variável.
+2) Os dois _ representam duas variáveis diferentes.
+3) Os dois _ representam o mesmo átomo.
+2

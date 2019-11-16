@@ -1,0 +1,9 @@
+
+Qual das seguintes afirmações é falsa a respeito da linguagem lógica Prolog?
+#
+1) suporta variáveis lógicas
+2) é baseada em relações 
+3) suporta a estrutura condicional if-else
+#
+3
+#
