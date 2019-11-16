@@ -1,9 +1,5 @@
-
 A expressão "humano(joao)." em uma base de conhecimento representa:
-#
 1) um fato
 2) uma consulta
 3) uma regra
-#
 1
-#

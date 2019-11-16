@@ -1,9 +1,5 @@
-
 Na regra "mae(X,Y):-progenitor(X,Y),feminino(X)",a cabeça da regra é:
-#
 1) progenitor(X, Y)
 2) progenitor(X, Y), feminino(X)
 3) mae(X, Y)
-#
 3
-#
