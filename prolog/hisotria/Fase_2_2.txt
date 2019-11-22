@@ -1,0 +1,9 @@
+Ao conseguir se livrar dos lobos, voce prossegue sua viagem em busca de Prologos. Ao alcancar o pico, ventos uivantes atravessam o topo com frequencia, como se houvesse uma pequena sinfonia desconjuntada.
+
+E la, no topo, voce ve, o lobo tasmaniano dos picos da morte. Seus olhos se encontram:
+
+"Sua vinda aqui eh obvia, depois do que e como aquele Orc fez, duvido que nao seriam erroneamente trazidos pra ca. Divirta-me, o que te faz pensar que eu, em todos esses anos de solitude, tenho a ver com sua jornada?"
+
+1 - "Voce foi um dos responsaveis por capturar Proglotus, vim recupera-lo."
+2 - "Claramente voce nao esta envolvido com minha missao, me fale mais sobre esse orc."
+#
