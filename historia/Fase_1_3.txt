@@ -1,0 +1,7 @@
+Com a vitoria, you entra mais fundo na floresta escura e sem vida. Em um certo ponto, you alcanca o coracao da floresta e la esta Zulstain, esperando por voce com suas adagas sacadas.
+
+"Por que veio ate aqui?"
+
+1 - "Eu estou procurando Proglotus, ouvi falar que voce pode saber de alguma coisa sobre isso"
+2- "Eu vim para acabar com o seu reinado de caos. Prepare-se para morrer!"
+#
