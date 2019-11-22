@@ -1,8 +1,0 @@
-Ao entrar no recinto, o cheiro de liquor te acerta em cheio, várias pessoas transitam sem parar pela taverna, umas esbarrando nas outras e, ao mesmo tempo, se estranhando no processo, como se uma briga fosse estourar a qualquer momento. Apesar disso, o ambiente aconchegante e a boa música tocada por uma pequena banda de aventureiros são mescladas com as gargalhadas, brindadas e conversas altas em meio as mesas do estabelecimento.
-
-O que voce prefere fazer?
-
-1 - Descansar
-2 - Ficar durante esta noite
-3 - Sair
-#
