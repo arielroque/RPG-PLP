@@ -1,3 +1,4 @@
+:- module(quiz,[ler_enunciado/1,get_resposta/2,avaliar_corretude/3]).
 :- use_module(leitorArquivos).
 %:- initialization(main).
 
@@ -22,12 +23,14 @@ get_resposta(Path,R):-
     ler_arquivo(Path,RK),
     get_last(RK,R).
 
-avaliar_corretude(Tentativa,Reposta):-
+avaliar_corretude(Tentativa,Reposta,Resultado):-
     atom_number(Reposta,K),
     Tentativa =:= K,
+    Resultado = "ACERTOU",
     write("ACERTOU!!").
 
-avaliar_corretude(_,_):-
+avaliar_corretude(_,_,Resultado):-
+    Resultado = "ERROU",
     write("ERROU.").
 
 %main:-

@@ -1,3 +1,5 @@
+:- use_module(leitorArquivos).
+:- use_module(quiz).
 :- initialization(main).
 
 mensagem_derrota:- 
@@ -41,32 +43,29 @@ loading:-
          ,writeln("####### ####### #     # ######  ### #     #  #####  ").
 
 
-validar_pergunta(X,X,"Resposta Correta").
-validar_pergunta(_,_,"Resposta Incorreta").
-
-mostrar_pergunta(Path):-
-   open(Path,read,Arquivo),
-   read_line_to_string(Arquivo,Titulo),
-   read_line_to_string(Arquivo,Alternativa1),
-   read_line_to_string(Arquivo,Alternativa2),
-   read_line_to_string(Arquivo,Alternativa3),
-   read_line_to_string(Arquivo,AlternativaCorreta),
-   close(Arquivo),
-   writeln(Titulo),
-   writeln(Alternativa1),
-   writeln(Alternativa2),
-   writeln(Alternativa3),
-   write("Resposta:"),
-   read(AtomoResposta),
-   atom_string(AtomoResposta,Resposta),
-   validar_pergunta(Resposta,AlternativaCorreta,Julgamento),
-   write(Julgamento).
-
-
-iniciar_jogo:-
+fase1(Historia,Quiz):-
+    write('\33\[2J'),
+    ler_arquivo(Historia,A),
+    show_contents(A),
+    sleep(6),
     loading,
     sleep(2),
-    mostrar_pergunta("perguntas/fase1-1.txt").
+    
+    write('\33\[2J'),
+    ler_enunciado(Quiz),    
+    get_resposta(Quiz,R),
+    write("Resposta:"),
+    read(Resposta),
+    avaliar_corretude(Resposta,R,Resultado).
+
+iniciar_jogo:-
+    write('\33\[2J'),
+    ler_arquivo("historia/Introducao.txt",A),
+    show_contents(A),
+    sleep(6),
+    loading,
+    sleep(2),
+    fase1("historia/Fase_1_1.txt","perguntas/fase1-1.txt").
 
 ranking:-
     loading,
@@ -89,7 +88,7 @@ selecionar_opcao(3):-
        creditos.
 
 selecionar_opcao(_):-
-       write("Opção Inválida"),
+       writeln("Opção Inválida"),
        menu.
  
 
@@ -108,6 +107,7 @@ menu:-
 main:-
     loading,
     sleep(2),
+    write('\33\[2J'),
     menu.
 
 
