@@ -79,8 +79,6 @@ iniciar_jogo:-
     Opcao == 4 -> ler_arquivo("historia/Fase_3_1.txt", V), show_contents(V);
     Opcao == 5 -> halt).
    
-
-
 ranking:-
     loading,
     sleep(1),
@@ -122,7 +120,6 @@ selecionar_opcao(_):-
        writeln("Opção Inválida"),
        menu.
  
-
 menu:-
     writeln("|-----------------------------------------------------------------------------|")
    ,writeln("|                                 Menu                                        |")
@@ -196,10 +193,6 @@ perdeu :-
     sleep(3),
     clear,
     menu.
-
-
-
-
 
 main:-
     loading,
