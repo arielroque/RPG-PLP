@@ -1,0 +1,5 @@
+Na linguagem prolog o tipo que engloba todas as contruções sintáticas é chamado de:
+1) termo
+2) dynamic
+3) logic
+1

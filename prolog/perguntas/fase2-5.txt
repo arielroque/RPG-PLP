@@ -1,0 +1,5 @@
+A unificação em prolog é usada para:
+1) comparar variavés
+2) realizar um merge entre listas
+3) instanciar variavés de dois predicados de modo a torna-los iguais
+3

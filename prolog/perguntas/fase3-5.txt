@@ -1,0 +1,5 @@
+A função reverse(L,R) em prolog é responsável por:
+1) inverte os valores de uma lista
+2) inverte os bits de todos os elementos da lista
+3) inverte todos os valores de um texto
+1

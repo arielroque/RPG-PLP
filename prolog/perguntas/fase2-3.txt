@@ -1,0 +1,5 @@
+Qual a alternativa correta a respeito do operador =:= em prolog?
+1) verifica se duas variaveis são diferentes
+2) verifica se duas variaveis são iguais 
+3) realiza uma verificação bit a bit da paridade entre variaveis
+2

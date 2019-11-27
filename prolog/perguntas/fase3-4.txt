@@ -1,0 +1,5 @@
+A função member(E,L) em prolog é responsável por:
+1) verificar se um número está contido na lista
+2) adicionar um elemento E como membro de uma lista
+3) extrair uma elemento E de uma lista
+1

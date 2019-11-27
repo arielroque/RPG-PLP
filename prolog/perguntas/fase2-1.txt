@@ -1,0 +1,5 @@
+A expressão 1 + 2 == 2 + 1 produz em Prolog o resultado:
+1) true
+2) false 
+3) (erro)
+2

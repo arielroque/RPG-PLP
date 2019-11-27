@@ -1,0 +1,5 @@
+Um sistema de programação lógica é composto por: 
+1) interface,motor de inferência e base do conhecimento
+2) interface,motor logic e banco de dados SQL 
+3) compilador Swinger,motor de inferência e base do conhecimento
+1

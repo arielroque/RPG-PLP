@@ -1,0 +1,5 @@
+Qual a forma correta de decompor uma lista em cabeça e calda em prolog?
+1) p[X|Y]
+2) p[k|L] 
+3) p[X:Y]
+1

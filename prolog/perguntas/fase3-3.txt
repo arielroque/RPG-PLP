@@ -1,0 +1,5 @@
+A função nth0(N,L,R) em prolog é responsável por:
+1) enviar instruções Assembly para a máquina
+2) realizar uma combinação entre variaveis
+3) pegar elemento pelo índice
+3

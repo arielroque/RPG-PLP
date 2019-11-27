@@ -1,0 +1,5 @@
+Em prolog quando realizamos operações matemática devemos usar o operador:
+1) Math
+2) is
+3) lMat
+2
