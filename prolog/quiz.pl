@@ -1,8 +1,8 @@
-<<<<<<< HEAD
+
 :- module(quiz,[ler_enunciado/1,get_resposta/2,avaliar_corretude/3]).
-=======
-:- module(quiz,[ler_enunciado/1,get_resposta/2,avaliar_corretude/2]).
->>>>>>> 8caa97d5a2f660851603f7c2c0af2b5b822bc8ce
+
+%:- module(quiz,[ler_enunciado/1,get_resposta/2,avaliar_corretude/2]).
+
 :- use_module(leitorArquivos).
 %:- initialization(main).
 
