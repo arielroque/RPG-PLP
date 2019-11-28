@@ -9,24 +9,99 @@ fase1(Jogador,RJogador):-
     path(fase11,R),
     ler_arquivo(R,Conts),
     show_contents(Conts),
-    read(_),
+    get_single_char(_),
     cls,
     path(fase12,R),
     ler_arquivo(R,Conts),
     show_contents(Conts),
-    read(_),
-    %batalha(Jogador,Goblin),
+    get_single_char(_),
+    cls,
+    %batalha(Jogador,goblin,RR),
     path(fase13,R),
     ler_arquivo(R,Conts),
     show_contents(Conts),
     read(Opc),
-    Opc =:= 1,
-    path(fase141,R),
+    fase1Esc(RR,Opc,RJogador),
+    path(fase14,R),
     ler_arquivo(R,Conts),
     show_contents(Conts),
-    read(_),
-    %call menu
+    get_single_char(_),
+    cls.
 
-fase1(Jogador,RJogador):-
-    path(fase142,R),
-    ler_arquivo()
+
+fase1Escolha(Jogador,Opc,RJogador):-
+    Opc =:= 2,
+    path(fase131,R),
+    ler_arquivo(R,Conts),
+    show_contents(Conts),
+    get_single_char(_),
+    %batalha(Jogador,goblinForte,RJogador),
+    cls.
+fase1Escolha(Jogador,Opc,RJogador):-
+    path(fase132,R),
+    ler_arquivo(R,Const),
+    show_contents(Conts),
+    get_single_char(_),
+    cls.
+    
+
+fase2(Jogador,RJogador):-
+    path(fase21,R),
+    ler_arquivo(R,Conts),
+    show_contents(Conts),
+    get_single_char(_),
+    cls,
+    %batalha(Jogador,lobo,RR),
+    path(fase22,R),
+    ler_arquivo(R,Conts),
+    show_contents(Conts),
+    read(Opc),
+    fase2Esc(RR,Opc,RJogador),
+    path(fase23,R),
+    ler_arquivo(R,Conts),
+    show_contents(Conts),
+    get_single_char(_),
+    cls.
+
+
+fase2Escolha(Jogador,Opc,RJogador):-
+    Opc =:= 1,
+    path(fase221,R),
+    ler_arquivo(R,Conts),
+    show_contents(Conts),
+    get_single_char(_),
+    %batalha(Jogador,loboForte,RJogador),
+    cls.
+fase2Escolha(Jogador,Opc,RJogador):-
+    path(fase222,R),
+    ler_arquivo(R,Const),
+    show_contents(Conts),
+    get_single_char(_),
+    cls.
+
+fase3(Jogador,RJogador):-
+    path(fase31,R),
+    ler_arquivo(R,Conts),
+    show_contents(Conts),
+    get_single_char(_),
+    cls,
+    %batalha(Jogador,orc,RR),
+    path(fase32,R),
+    ler_arquivo(R,Conts),
+    show_contents(Conts),
+    get_single_char(_),
+    cls,
+    %batalha(RR,orcForte,RJogador),
+    path(fase33,R),
+    ler_arquivo(R,Conts),
+    show_contents(Conts),
+    get_single_char(_),
+    cls,
+    %batalha(RR,cavaleiroNegro,RJogador),
+    path(fase34,R),
+    ler_arquivo(R,Conts),
+    show_contents(Conts),
+    get_single_char(_),
+    cls.
+    %finalizaJogo
+
