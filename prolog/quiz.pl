@@ -1,8 +1,6 @@
 
 :- module(quiz,[ler_enunciado/1,get_resposta/2,avaliar_corretude/3]).
 
-%:- module(quiz,[ler_enunciado/1,get_resposta/2,avaliar_corretude/2]).
-
 :- use_module(leitorArquivos).
 %:- initialization(main).
 

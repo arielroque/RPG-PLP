@@ -1,28 +1,51 @@
+:- initialization(main).
 :- use_module(leitorArquivos).
 :- use_module(quiz).
-:- initialization(main).
+:- use_module(fases).
 
+
+
+mensagem_taverna:-
+    writeln("                               (   )"                 )
+    ,writeln("                          (    )"                    )
+    ,writeln("                           (    )"                   )
+    ,writeln("                          (    )"                    )
+    ,writeln("                            )  )"                    )
+    ,writeln("                           (  (                  /\\"      )
+    ,writeln("                            (_)                 /  \\  /\\")
+    ,writeln("                    ________[_]_______      /\\/    \\/  \\")
+    ,writeln("         /\\      /\        ______   \\    /  /\\/\\  /\\/\\")
+    ,writeln("        /  \\    //\\      \\   /\\   \\  /\\/\\/   \\/    \\")
+    ,writeln("  /\\  //\\/\\  //__\\      \\__/ \\   \\/")
+    ,writeln(" / \\ /\\/   \\//____\\      \\ |[]|    \\")
+    ,writeln("/\\/\\/\\/    /_______\\       \\|__|    \\")
+    ,writeln("/    \\      /XXXXXXXXX\\                 \\")
+    ,writeln("       \\   /_I_II  I__I_\\________________\\")
+    ,writeln("               I_I|  I__I_____[]_|_[]_____I")
+    ,writeln("               I_II  I__I_____[]_|_[]_____I")
+    ,writeln("               I II__I  I     XXXXXXX     I")
+    ,writeln("            ~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~").
 
 mensagem_derrota:-
     writeln(" ▄████  ▄▄▄       ███▄ ▄███▓▓█████     ▒█████   ██▒   █▓▓█████  ██▀███")
-
-    ,writeln(" ██▒ ▀█▒▒████▄    ▓██▒▀█▀ ██▒▓█   ▀    ▒██▒  ██▒▓██░   █▒▓█   ▀ ▓██ ▒ ██▒")
-
-    ,writeln("▒██░▄▄▄░▒██  ▀█▄  ▓██    ▓██░▒███      ▒██░  ██▒ ▓██  █▒░▒███   ▓██ ░▄█ ▒")
-
-    ,writeln("░▓█  ██▓░██▄▄▄▄██ ▒██    ▒██ ▒▓█  ▄    ▒██   ██░  ▒██ █░░▒▓█  ▄ ▒██▀▀█▄")
-
-    ,writeln("░▒▓███▀▒ ▓█   ▓██▒▒██▒   ░██▒░▒████▒   ░ ████▓▒░   ▒▀█░  ░▒████▒░██▓ ▒██▒")
-
-    ,writeln(" ░▒   ▒  ▒▒   ▓▒█░░ ▒░   ░  ░░░ ▒░ ░   ░ ▒░▒░▒░    ░ ▐░  ░░ ▒░ ░░ ▒▓ ░▒▓░")
-
-    ,writeln("  ░   ░   ▒   ▒▒ ░░  ░      ░ ░ ░  ░     ░ ▒ ▒░    ░ ░░   ░ ░  ░  ░▒ ░ ▒░")
-
-    ,writeln("░ ░   ░   ░   ▒   ░      ░      ░      ░ ░ ░ ▒       ░░     ░     ░░   ░ ")
-
-    ,writeln("      ░       ░  ░       ░      ░  ░       ░ ░        ░     ░  ░   ░     ")
-
-    ,writeln("                                                      ░                ").
+    ,sleep(0.05),
+    writeln(" ██▒ ▀█▒▒████▄    ▓██▒▀█▀ ██▒▓█   ▀    ▒██▒  ██▒▓██░   █▒▓█   ▀ ▓██ ▒ ██▒")
+    ,sleep(0.05),
+    writeln("▒██░▄▄▄░▒██  ▀█▄  ▓██    ▓██░▒███      ▒██░  ██▒ ▓██  █▒░▒███   ▓██ ░▄█ ▒")
+    ,sleep(0.05),
+    writeln("░▓█  ██▓░██▄▄▄▄██ ▒██    ▒██ ▒▓█  ▄    ▒██   ██░  ▒██ █░░▒▓█  ▄ ▒██▀▀█▄")
+    ,sleep(0.05),
+    writeln("░▒▓███▀▒ ▓█   ▓██▒▒██▒   ░██▒░▒████▒   ░ ████▓▒░   ▒▀█░  ░▒████▒░██▓ ▒██▒")
+    ,sleep(0.05),
+    writeln(" ░▒   ▒  ▒▒   ▓▒█░░ ▒░   ░  ░░░ ▒░ ░   ░ ▒░▒░▒░    ░ ▐░  ░░ ▒░ ░░ ▒▓ ░▒▓░")
+    ,sleep(0.05),
+    writeln("  ░   ░   ▒   ▒▒ ░░  ░      ░ ░ ░  ░     ░ ▒ ▒░    ░ ░░   ░ ░  ░  ░▒ ░ ▒░")
+    ,sleep(0.05),
+    writeln("░ ░   ░   ░   ▒   ░      ░      ░      ░ ░ ░ ▒       ░░     ░     ░░   ░ ")
+    ,sleep(0.05),
+    writeln("      ░       ░  ░       ░      ░  ░       ░ ░        ░     ░  ░   ░     ")
+    ,sleep(0.05),
+    writeln("                                                      ░                ").
 
 mensagem_vencedor:-
      writeln("██╗   ██╗ ██████╗  ██████╗███████╗    ██╗   ██╗███████╗███╗   ██╗ ██████╗███████╗██╗   ██╗██╗██╗██╗██╗██╗██╗██╗██╗")
@@ -43,25 +66,134 @@ loading:-
          ,writeln("#       #     # #     # #     #  #  #    ## #     # ")
          ,writeln("####### ####### #     # ######  ### #     #  #####  ").
 
+
+lobo:-
+     writeln("#############################################################")
+    ,writeln("###################################################   #######")
+    ,writeln("###############################################   /~|   #####")
+    ,writeln("############################################   _- `~~~', ####")
+    ,writeln("##########################################  _-        )  ####")
+    ,writeln("#######################################  _-           |  ####")
+    ,writeln("####################################  _-             ;  #####")
+    ,writeln("##########################  __---___-               |   #####")
+    ,writeln("#######################   _~   ,,                  ;  `,,  ##")
+    ,writeln("#####################  _-     ;'                  |  ,'  ; ##")
+    ,writeln("###################  _~      '                    `~'   ; ###")
+    ,writeln("############   __---;                                 ,' ####")
+    ,writeln("########   __~~  ___                                ,' ######")
+    ,writeln("#####  _-~~   -~~ _                               ,' ########")
+    ,writeln("##### `-_         _                              ; ##########")
+    ,writeln("#######  ~~----~~~   ;                          ; ###########")
+    ,writeln("#########  /          ;                        ; ############")
+    ,writeln("#######  /             ;                      ; #############")
+    ,writeln("#####  /                `                    ; ##############")
+    ,writeln("###  /                                      ; ###############")
+    ,writeln("#                                            ################").
+
+
+chefe:-
+    writeln("")
+    ,writeln("                        ==(W{==========-      /===-")
+    ,writeln("                          ||  (.--.)         /===-_---~~~~~~~~~------____")
+    ,writeln("                          |\\_,|**|,__       |===-~___                _,-' `")
+    ,writeln("             -==\\        `\\ ' `--'   ),    `//~\\   ~~~~`---.___.-~~")
+    ,writeln("       ______-==|        /`\\_. .__/\\ \\    | |  \\           _-~`")
+    ,writeln("   __--~~~  ,-/-==\\      (   | .  |~~~~|   | |  ` \\        ,'")
+    ,writeln("_-~       /'    |  \\     )__/==0==\\<>/   / /      \\      /")
+    ,writeln("  .'        /       |   \\      /~\\__/~~\\/  /' /       \\   /'")
+    ,writeln(" /  ____  /         |    \\`\\.__/-~~   \\  |_/'  /       \\/'")
+    ,writeln("/-'~    ~~~~~---__  |     ~-/~         ( )   /'        _--~`")
+    ,writeln("             \\_|      /        _) | ;  ),   __--~~")
+    ,writeln("                '~~--_/      _-~/- |/ \\   '-~ ")
+    ,writeln("               {\\_--/}    /  \\_>-|)<__\\      ")
+    ,writeln("               /'   (_/  _-~  | |__>--<__|      |")
+    ,writeln("              |   _/) )-~     | |__>--<__|      |")
+    ,writeln("              / /~ ,_/       / /__>---<__/      |")
+    ,writeln("             o-o _//        /-~_>---<__-~      /")
+    ,writeln("             (^(~          /~_>---<__-      _-~")
+    ,writeln("            ,/|           /__>--<__/     _-~")
+    ,writeln("         ,//('(          |__>--<__|     /                  .----_")
+    ,writeln("        ( ( '))          |__>--<__|    |                 /' _---_~")
+    ,writeln("     `-)) )) (           |__>--<__|    | -ME DÁ 10     /'  /     ~\\`")
+    ,writeln("    ,/,'//( (            \\__>--< \\   \\            /'  //        ||")
+    ,writeln("  ,( ( ((, ))              ~-__>--<_~-_  ~--____---~' _/'/        /'")
+    ,writeln("`~/  )` ) ,/|                 ~-_~>--<_/-__       __-~ _/")
+    ,writeln("._-~//( )/ )) `                    ~~-'_/_/ /~~~~~~~__--~")
+    ,writeln(";'( ')/ ,)(                              ~~~~~~~~~~")
+    ,writeln("' ) ( (/)\n")
+    ,writeln("'   '  `\n").
+
+
+%ListaDePerguntas__________________________________________________________________________________________________ListaDePerguntas
+
 quiz1(["perguntas/fase1-1.txt","perguntas/fase1-2.txt","perguntas/fase1-3.txt", "perguntas/fase1-4.txt", "perguntas/fase1-5.txt"]).
+quiz2(["perguntas/fase2-1.txt","perguntas/fase2-2.txt","perguntas/fase2-3.txt", "perguntas/fase2-4.txt", "perguntas/fase2-5.txt"]).
+quiz23(["perguntas/fase3-1.txt","perguntas/fase3-2.txt","perguntas/fase3-3.txt", "perguntas/fase3-4.txt", "perguntas/fase3-5.txt"]).
+%FIM_DA_DECLARACAO
+
+
+
+%BATALHA
+
+batalha([H|T]):-
+    writeln("Um oponente se aproxima..."),
+    writeln(H),
+    %ler_enunciado(H),
+    %read(Op),
+    %getResposta(H,X),
+    %avaliarCorretude(Op,X,Resultado ),
+    batalha(T).
+    
+
+
+
+
+
+
 
 
 
 iniciar_jogo:-
-    clear,
+    %setando as variaveis globais
     b_setval(hp, 100),
+    b_setval(dano, 15),
+    b_setval(defesa, 12),
+
+
     ler_arquivo("historia/Introducao.txt",A),
     show_contents(A),
-    sleep(2),
-    b_getval(hp, X),
-    writeln(X),
-    b_setval(hp, 90),
-    fase1.
+    partida.
     
-fase1:-
-    b_getval(hp, X),
-    (X > 80 -> writeln("deu certo")),
-    writeln(X).
+partida:-
+    ler_arquivo("historia/Partida.txt", B),
+    show_contents(B),
+    read(Op),
+    (Op =:= 0 -> taverna;
+     Op =:= 1 -> fase1;
+     Op =:= 2 -> fase2;
+     Op =:= 3 -> fase3;
+     Op =:= 4 -> fase4;
+     Op =:= 5 -> halt).
+
+fase4:-
+    ler_arquivo("historia/Andar sem rumo.txt", A),
+    show_contents(A),
+    sleep(4),
+    write("digite enter"),
+    partida,
+    clear.
+    
+taverna:- 
+    %mensagem_taverna,
+    ler_arquivo("historia/Taverna_cheia.txt", C),
+    show_contents(C),
+    read(Aux),
+    (Aux =:= 1 -> nl, ler_arquivo("historia/Aproveitar_noite.txt", X), 
+        show_contents(X), sleep(4),
+        clear, ler_arquivo("historia/Descansar.txt", Y),
+        show_contents(Y), sleep(4), b_setval(hp, 100),clear, partida;
+
+    Aux =:= 2 -> clear, partida).
 
 ranking:-
     loading,
@@ -112,18 +244,13 @@ menu:-
    ,writeln("|                           [3] Créditos                                      |")
    ,writeln("|                           [0] Sair do Jogo                                  |")
    ,writeln("|-----------------------------------------------------------------------------|"),
-   write("Opcao:"),
+   writeln("Opcao:"),
    read(Opcao),
    selecionar_opcao(Opcao).
 
 
 clear:- write('\33\[2J').
 
-readInt(Number) :-
-    (read_line_to_codes(user_input, Codes),
-    string_to_atom(Codes, Atom),
-    atom_number(Atom, Number));
-    Number is -1.
 
 getYesNo(Choice) :-
     writeln("1) Sim"),
@@ -139,15 +266,16 @@ confirm:-
 
 %JOGADOR_________________________________________________________JOGADOR____________________________________________________________JOGADOR
 
-
+%lembrando que defesa tbm pode ser considerado iniciativa
 hp(X).
 dano(Y).
 defesa(Z).
 
+%MONSTRO
 
-
-
-
+monstroHP(A).
+monstroDano(B).
+monstroDefesa(C).
 
 fillHP() :-
     atributos(_, DANO, DEFESA),
@@ -160,13 +288,22 @@ fillHP() :-
 perdeu :-
     writeln("Não foi dessa vez, você perdeu!"),
     mensagem_derrota,
-    sleep(3),
+    sleep(4),
     clear,
     menu.
+
+
+%ROLAR_DADOS
+
+
+
 
 main:-
     loading,
     sleep(2),
+    %batalha(quiz1),
+    sleep(5),
+    %mensagem_taverna,
     clear,
     menu.
 

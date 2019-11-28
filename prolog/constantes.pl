@@ -1,4 +1,4 @@
-:-module(constantes).
+:-module(constantes, [path/2]).
 
 path(fase11,"historia/Fase_1_1.txt").
 path(fase12,"historia/Fase_1_2.txt").
@@ -15,3 +15,4 @@ path(fase31,"historia/Fase_3_1.txt").
 path(fase32,"historia/Fase_3_2.txt").
 path(fase33,"historia/Fase_3_3.txt").
 path(fase34,"historia/Fase_3_4.txt").
+path(fase4, "historia/Andar sem rumo.txt").

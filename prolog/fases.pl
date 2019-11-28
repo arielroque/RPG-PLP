@@ -1,11 +1,11 @@
-:- module(fases,[fase1/1,fase2/2,fase3/3]).
-:- use_module(constantes)
+:- module(fases,[fase1/0,fase2/0,fase3/0, fase1Escolha/1, fase2Escolha/1, fase1Escolha/1]).
+:- use_module(constantes).
 :- use_module(leitorArquivos).
 :- use_module(quiz).
 :- use_module(util).
 
 
-fase1(Jogador,RJogador):-
+fase1:-
     path(fase11,R),
     ler_arquivo(R,Conts),
     show_contents(Conts),
@@ -29,7 +29,7 @@ fase1(Jogador,RJogador):-
     clear.
 
 
-fase1Escolha(Jogador,Opc,RJogador):-
+fase1Escolha(Opc):-
     Opc =:= 2,
     path(fase131,R),
     ler_arquivo(R,Conts),
@@ -37,7 +37,8 @@ fase1Escolha(Jogador,Opc,RJogador):-
     get_single_char(_),
     %batalha(Jogador,goblinForte,RJogador),
     clear.
-fase1Escolha(Jogador,Opc,RJogador):-
+
+fase1Escolha:-
     path(fase132,R),
     ler_arquivo(R,Const),
     show_contents(Conts),
@@ -45,7 +46,7 @@ fase1Escolha(Jogador,Opc,RJogador):-
     clear.
     
 
-fase2(Jogador,RJogador):-
+fase2:-
     path(fase21,R),
     ler_arquivo(R,Conts),
     show_contents(Conts),
@@ -64,7 +65,7 @@ fase2(Jogador,RJogador):-
     clear.
 
 
-fase2Escolha(Jogador,Opc,RJogador):-
+fase2Escolha(Opc):-
     Opc =:= 1,
     path(fase221,R),
     ler_arquivo(R,Conts),
@@ -72,14 +73,14 @@ fase2Escolha(Jogador,Opc,RJogador):-
     get_single_char(_),
     %batalha(Jogador,loboForte,RJogador),
     clear.
-fase2Escolha(Jogador,Opc,RJogador):-
+fase2Escolha(Opc):-
     path(fase222,R),
     ler_arquivo(R,Const),
     show_contents(Conts),
     get_single_char(_),
     clear.
 
-fase3(Jogador,RJogador):-
+fase3:-
     path(fase31,R),
     ler_arquivo(R,Conts),
     show_contents(Conts),
@@ -104,4 +105,5 @@ fase3(Jogador,RJogador):-
     get_single_char(_),
     clear.
     %finalizaJogo
+
 
