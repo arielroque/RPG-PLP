@@ -43,41 +43,25 @@ loading:-
          ,writeln("#       #     # #     # #     #  #  #    ## #     # ")
          ,writeln("####### ####### #     # ######  ### #     #  #####  ").
 
-historia(["historia/Fase_1_1.txt", "historia/Fase_1_2.txt","historia/Fase_1_3.txt","historia/Fase_1_3_1.txt","historia/Fase_1_3_2.txt","historia/Fase_1_4.txt"]).
-quiz(["perguntas/fase1-1.txt","perguntas/fase1-2.txt","perguntas/fase1-3.txt", "perguntas/fase1-4.txt", "perguntas/fase1-5.txt"]).
-
-&VAI SER NO BRUTO
-fase1([H|T],[H|L]):-
-    clear,
-    ler_arquivo(H,A),
-    show_contents(A),
-    %sleep(6),
-    %loading,
-    %sleep(2),
-    %clear,
-    %ler_enunciado(X),
-    %get_resposta(X,R),
-    %write("Resposta:"),
-    %read(Resposta),
-    %avaliar_corretude(Resposta,R,Resultado),
-    fase1(T, L).
+quiz1(["perguntas/fase1-1.txt","perguntas/fase1-2.txt","perguntas/fase1-3.txt", "perguntas/fase1-4.txt", "perguntas/fase1-5.txt"]).
 
 
 
 iniciar_jogo:-
     clear,
+    b_setval(hp, 100),
     ler_arquivo("historia/Introducao.txt",A),
     show_contents(A),
     sleep(2),
-    clear,
-    ler_arquivo("historia/Partida.txt", B),
-    show_contents(B),
-    read(Opcao),
-    (Opcao == 0 -> ler_arquivo("historia/Taverna_cheia.txt", C), show_contents(C);
-    Opcao == 1 ->  ler_arquivo("historia/Fase_1_1.txt",T), show_contents(T), fase1());
-    Opcao == 3 -> ler_arquivo("historia/Fase_2_1.txt", U), show_contents(U);
-    Opcao == 4 -> ler_arquivo("historia/Fase_3_1.txt", V), show_contents(V);
-    Opcao == 5 -> halt).
+    b_getval(hp, X),
+    writeln(X),
+    b_setval(hp, 90),
+    fase1.
+    
+fase1:-
+    b_getval(hp, X),
+    (X > 80 -> writeln("deu certo")),
+    writeln(X).
 
 ranking:-
     loading,
@@ -150,42 +134,28 @@ getYesNo(Choice) :-
 confirm:-
     writeln(""),
     writeln("Pressione ENTER para continuar"),
-    get_single_char(_),
+    read(_),
     clear.
 
 %JOGADOR_________________________________________________________JOGADOR____________________________________________________________JOGADOR
 
 
-:- dynamic(atributos/4).
-% atributos(hp, dano, defesa)
-atributos(100, 15, 12).
+hp(X).
+dano(Y).
+defesa(Z).
 
-%GETS_JOGADOR
 
-getHP(HP) :- atributos(HP, _, _).
-getHP(DANO) :- atributos(_, DANO, _).
-getHP(DEFESA) :- atributos(_, _, DEFESA).
 
-setHP(HP) :-
-    atributos(_, DANO, DEF),
-    retract(atributos(_, _, _)),
-    asserta(atributos(HP, DANO, DEF)).
 
-takeDamage(DANO) :-
-    getHP(HP),
-    NewHP is HP - DANO,
-    (NewHP > 0) -> (setHP(NewHP));
-    setHP(0).
 
-setDANO(DANO) :-
-    atributos(HP, _, DEF),
-    retract(atributos(_, _, _)),
-    asserta(atributos(HP, DANO, DEF)).
 
-recoverHP(QtdVida) :-
-    getHP(HP),
-    K is QtdVida + HP,
-    setHP(K).
+fillHP() :-
+    atributos(_, DANO, DEFESA),
+    HP = 100,
+    retract(atributos(_, _,_)),
+    asserta(atributos(HP, DANO, DEFESA)).
+
+
 
 perdeu :-
     writeln("Não foi dessa vez, você perdeu!"),

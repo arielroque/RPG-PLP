@@ -3,11 +3,16 @@
 
 ler_ranking(Listas):-
   	csv_read_file("./ranking.csv", Colunas, []),
- 	 colunas_para_listas(Colunas, Listas).   
+ 	 colunas_para_listas(Colunas, Listas).
 
-inserirPontuacao(X,Y):-
-    findall(row(A,B), (member(A, X), member(B, Y)), Rows),
-    csv_write_file('./ranking.csv',[row(X,Y)]).
+
+add_tail([],X,(X)).
+add_tail([H|T],X,[H|L]):-add_tail(T,X,L).
+     
+
+inserirPontuacao(X,Y,Lista):-
+    
+   csv_write_file('./ranking.csv',Lista).
 
 pontuacao([]):- write(""). 
 pontuacao([U,P|_]):- write(U),write(" - "),writeln(P).
@@ -23,8 +28,7 @@ colunas_para_listas(Colunas, Listas):-
 coluna_para_lista(Coluna, Lista):-
  	 Coluna =.. [row|Lista].
 
-pushFront(Item, List, [Item|List]).
-           
+pushFront(Item, List, [Item|List]).          
 
 main:-
     ler_ranking(Listas),
