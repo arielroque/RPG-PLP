@@ -46,8 +46,8 @@ loading:-
 historia(["historia/Fase_1_1.txt", "historia/Fase_1_2.txt","historia/Fase_1_3.txt","historia/Fase_1_3_1.txt","historia/Fase_1_3_2.txt","historia/Fase_1_4.txt"]).
 quiz(["perguntas/fase1-1.txt","perguntas/fase1-2.txt","perguntas/fase1-3.txt", "perguntas/fase1-4.txt", "perguntas/fase1-5.txt"]).
 
-&VAI SER NO BRUTO
-fase1([H|T],[H|L]):-
+
+fase1([H|T],[X|L]):-
     clear,
     ler_arquivo(H,A),
     show_contents(A),
@@ -158,7 +158,7 @@ confirm:-
 
 :- dynamic(atributos/4).
 % atributos(hp, dano, defesa)
-atributos(100, 15, 12).
+atributos(100, 15, 12, 30).
 
 %GETS_JOGADOR
 
