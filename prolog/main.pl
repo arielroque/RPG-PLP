@@ -45,7 +45,8 @@ mensagem_derrota:-
     ,sleep(0.05),
     writeln("      ░       ░  ░       ░      ░  ░       ░ ░        ░     ░  ░   ░     ")
     ,sleep(0.05),
-    writeln("                                                      ░                ").
+    writeln("                                                      ░                "),
+    sleep(4).
 
 mensagem_vencedor:-
      writeln("██╗   ██╗ ██████╗  ██████╗███████╗    ██╗   ██╗███████╗███╗   ██╗ ██████╗███████╗██╗   ██╗██╗██╗██╗██╗██╗██╗██╗██╗")
@@ -54,7 +55,8 @@ mensagem_vencedor:-
     ,writeln("╚██╗ ██╔╝██║   ██║██║     ██╔══╝      ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║██║     ██╔══╝  ██║   ██║╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝")
     ,writeln(" ╚████╔╝ ╚██████╔╝╚██████╗███████╗     ╚████╔╝ ███████╗██║ ╚████║╚██████╗███████╗╚██████╔╝██╗██╗██╗██╗██╗██╗██╗██╗")
     ,writeln("  ╚═══╝   ╚═════╝  ╚═════╝╚══════╝      ╚═══╝  ╚══════╝╚═╝  ╚═══╝ ╚═════╝╚══════╝ ╚═════╝ ╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝")
-    ,writeln("").
+    ,writeln(""),
+    sleep(4).
 
 
 loading:-
@@ -128,29 +130,67 @@ chefe:-
 
 quiz1(["perguntas/fase1-1.txt","perguntas/fase1-2.txt","perguntas/fase1-3.txt", "perguntas/fase1-4.txt", "perguntas/fase1-5.txt"]).
 quiz2(["perguntas/fase2-1.txt","perguntas/fase2-2.txt","perguntas/fase2-3.txt", "perguntas/fase2-4.txt", "perguntas/fase2-5.txt"]).
-quiz23(["perguntas/fase3-1.txt","perguntas/fase3-2.txt","perguntas/fase3-3.txt", "perguntas/fase3-4.txt", "perguntas/fase3-5.txt"]).
+quiz3(["perguntas/fase3-1.txt","perguntas/fase3-2.txt","perguntas/fase3-3.txt", "perguntas/fase3-4.txt", "perguntas/fase3-5.txt"]).
 %FIM_DA_DECLARACAO
-
 
 
 %BATALHA
 
+%Caso_ninguem_morra_chama_mais_perguntas
+batalha([]):-
+     b_getval(fase, F),
+     (F =:= 1 -> quiz1(X),batalha(X);
+      F =:= 2 -> quiz2(X),batalha(X);
+      F =:= 3 -> quiz3(X),batalha(X)
+     ).
+
+
+proximaFase:-
+    b_getval(fase, F),
+     (F =:= 1 -> fase2;
+      F =:= 2 -> fase3;
+      F =:= 3 -> mensagem_vencedor,menu
+     ).
+
 batalha([H|T]):-
+    clear,
     writeln("Um oponente se aproxima..."),
-    writeln(H),
-    %ler_enunciado(H),
-    %read(Op),
-    %getResposta(H,X),
-    %avaliarCorretude(Op,X,Resultado ),
-    batalha(T).
-    
+    mostrar_HP,
+    ler_enunciado(H),
+    read(Op),
+    get_resposta(H,X),
+    avaliar_corretude(Op,X,Resultado),
+    (Resultado == "ERROU" -> danoJogador;
+     danoMonstro),
+    b_getval(hp, U),
+    b_getval(monstroHP, R),
+    (U =< 0 -> sleep(2),clear,mensagem_derrota,menu;
+     R =< 0 -> proximaFase;
+     batalha(T)
+    ).
 
+danoJogador:-
+    b_getval(monstroDano, D),
+    b_getval(hp, U), 
+    K is U - D,
+    b_setval(hp, K).
 
+danoMonstro:-
+   b_getval(dano, D),
+   b_getval(monstroHP, U),
+   V is U - D, 
+   b_setval(monstroHP, V). 
 
-
-
-
-
+mostrar_HP:-
+    writeln(""),
+    write("HP:"),
+    b_getval(hp, U),
+    write(U),
+    write("      "),
+    write("Monstro HP:"),
+    b_getval(monstroHP, R),
+    writeln(R),
+    writeln("").
 
 
 iniciar_jogo:-
@@ -159,9 +199,9 @@ iniciar_jogo:-
     b_setval(dano, 15),
     b_setval(defesa, 12),
 
-
     ler_arquivo("historia/Introducao.txt",A),
     show_contents(A),
+    sleep(10),
     partida.
     
 partida:-
@@ -173,7 +213,33 @@ partida:-
      Op =:= 2 -> fase2;
      Op =:= 3 -> fase3;
      Op =:= 4 -> fase4;
-     Op =:= 5 -> halt).
+     Op =:= 5 -> halt). 
+
+fase1:-
+     b_setval(monstroHP, 120),
+     b_setval(monstroDano, 40),
+     b_setval(monstroDefesa, 12),
+     b_setval(fase, 1),
+     quiz1(X),
+     batalha(X).
+
+fase2:-
+     b_setval(monstroHP, 140),
+     b_setval(monstroDano, 50),
+     b_setval(monstroDefesa, 22),
+     b_setval(fase, 2),
+     b_setval(hp, 120),
+     quiz2(X),
+     batalha(X).
+
+fase3:-
+     b_setval(monstroHP, 160),
+     b_setval(monstroDano, 60),
+     b_setval(monstroDefesa, 32),
+     b_setval(fase, 3),
+     b_setval(hp, 140),
+     quiz3(X),
+     batalha(X).
 
 fase4:-
     ler_arquivo("historia/Andar sem rumo.txt", A),
@@ -185,10 +251,12 @@ fase4:-
     
 taverna:- 
     %mensagem_taverna,
+    clear,
     ler_arquivo("historia/Taverna_cheia.txt", C),
     show_contents(C),
     read(Aux),
     (Aux =:= 1 -> nl, ler_arquivo("historia/Aproveitar_noite.txt", X), 
+        clear,
         show_contents(X), sleep(4),
         clear, ler_arquivo("historia/Descansar.txt", Y),
         show_contents(Y), sleep(4), b_setval(hp, 100),clear, partida;
@@ -283,8 +351,6 @@ fillHP() :-
     retract(atributos(_, _,_)),
     asserta(atributos(HP, DANO, DEFESA)).
 
-
-
 perdeu :-
     writeln("Não foi dessa vez, você perdeu!"),
     mensagem_derrota,
@@ -294,9 +360,6 @@ perdeu :-
 
 
 %ROLAR_DADOS
-
-
-
 
 main:-
     loading,
