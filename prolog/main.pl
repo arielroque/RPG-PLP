@@ -133,7 +133,6 @@ quiz2(["perguntas/fase2-1.txt","perguntas/fase2-2.txt","perguntas/fase2-3.txt", 
 quiz3(["perguntas/fase3-1.txt","perguntas/fase3-2.txt","perguntas/fase3-3.txt", "perguntas/fase3-4.txt", "perguntas/fase3-5.txt"]).
 %FIM_DA_DECLARACAO
 
-
 %BATALHA
 
 %Caso_ninguem_morra_chama_mais_perguntas
