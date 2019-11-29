@@ -178,7 +178,6 @@ quiz3(["perguntas/fase3-1.txt","perguntas/fase3-2.txt","perguntas/fase3-3.txt", 
 %FIM_DA_DECLARACAO
 
 %BATALHA
-
 %Caso_ninguem_morra_chama_mais_perguntas
 batalha([]):-
      b_getval(fase, F),
@@ -190,9 +189,14 @@ batalha([]):-
 
 proximaFase:-
     b_getval(fase, F),
-     (F =:= 1 -> fase1Action;
-      F =:= 2 -> fase3;
-      F =:= 3 -> mensagem_vencedor,menu
+     (F =:= 1 -> fase2;
+      F =:= 11 -> fase1Aux;
+      F =:= 111 -> partida;
+      F =:= 2 -> fase2Aux;
+      F =:= 22 -> partida;
+      F =:= 3 -> fase33;
+      F =:= 33 -> fase333;
+      F =:= 333 -> mensagem_vencedor,menu
      ).
 
 batalha([H|T]):-
@@ -244,7 +248,7 @@ iniciar_jogo:-
 
     ler_arquivo("historia/Introducao.txt",A),
     show_contents(A),
-    sleep(4),
+    read(_),
     nl,
   
     partida.
@@ -264,22 +268,24 @@ partida:-
 
 
 fase1:-
+    b_setval(fase, 11),
     ler_arquivo("historia/Fase_1_1.txt",A),
     show_contents(A),
-    sleep(2),
+    read(_),
     clear,
     ler_arquivo("historia/Fase_1_2.txt",B),
     show_contents(B),
-    sleep(2),
     clear,
-    fase1Action,
+    fase1Action.
+
+fase1Aux:-
     sleep(2),
     clear,
     ler_arquivo("historia/Fase_1_3.txt",C),
     show_contents(C),
-    sleep(4),
     read(Opc),
     fase1Escolha(Opc),
+    
     ler_arquivo("historia/Fase_1_4.txt",D),
     show_contents(D),
     read(_),
@@ -287,83 +293,90 @@ fase1:-
 
 
 fase1Escolha(Opc):-
+
     Opc =:= 2,
-    ler_arquivo("historia/Fase_1_3_1.txt",Conts),
-    show_contents(Conts),
-    sleep(4),
+    ler_arquivo("historia/Fase_1_3_2.txt",W),
+    show_contents(W),
+    b_setval(fase, 111),
+    sleep(2),
     clear,
-    fase1Action,
-    clear.
+    fase1Action.
 
 fase1Escolha(Opc):-
     Opc =:= 1,
-    ler_arquivo("historia/Fase_1_3_2.txt",Const),
-    show_contents(Conts),
-    clear.
+    ler_arquivo("historia/Fase_1_3_1.txt",C),
+    show_contents(C),
+    sleep(2),
+    clear,
+    partida.
     
 
 fase2:-
-    ler_arquivo("historia/Fase_2_1.txt",Conts),
-    show_contents(Conts),
+    b_setval(fase, 2),
+    ler_arquivo("historia/Fase_2_1.txt",A),
+    show_contents(A),
     read(_),
+    lobo,
+    sleep(1),
     clear,
-    fase2Action,
-    clear,
-    ler_arquivo("historia/Fase_2_2.txt",Conts),
-    show_contents(Conts),
+    fase2Action.
+    
+fase2Aux:-
+    clear,    
+    ler_arquivo("historia/Fase_2_2.txt",B),
+    show_contents(B),    
     read(Opc),
-    fase2Escolha(Opc),
-    ler_arquivo("historia/Fase_2_3.txt",Conts),
-    show_contents(Conts),
-   
-    clear.
+    fase2Escolha(Opc).
+
 
 
 fase2Escolha(Opc):-
     Opc =:= 1,
-    ler_arquivo("historia/Fase_2_2_1.txt",Conts),
-    show_contents(Conts),
-
+    b_setval(fase, 22),
+    ler_arquivo("historia/Fase_2_2_1.txt",A),
+    show_contents(A),
+    clear,
     fase2Action,
     clear.
-fase2Escolha(Opc):-
-    ler_arquivo("historia/Fase_2_2_2.txt",Const),
-    show_contents(Conts),
 
-    clear.
+fase2Escolha(Opc):-
+    ler_arquivo("historia/Fase_2_2_2.txt",M),
+    show_contents(M),
+    clear,
+    partida.
 
 fase3:-
-    ler_arquivo("historia/Fase_3_1.txt",Conts),
-    show_contents(Conts),
- 
+    b_setval(fase, 3),
+    ler_arquivo("historia/Fase_3_1.txt",Z),
+    show_contents(Z),
+    read(_),
+    clear,
+    fase3Action.
+
+fase33:-
+     b_setval(fase, 33),
+    ler_arquivo("historia/Fase_3_2.txt",Q),
+    show_contents(Q),
+    read(_),
+    clear,
+    fase3Action.
+fase333:-
+    chefe,
+    sleep(2),
+    b_setval(fase, 333),
+    ler_arquivo("historia/Fase_3_3.txt",O),
+    show_contents(O),
+    read(_),
     clear,
     fase3Action,
-    ler_arquivo("historia/Fase_3_2.txt",Conts),
-    show_contents(Conts),
-
-    clear,
-    fase3Action,
-    ler_arquivo("historia/Fase_3_3.txt",Conts),
-    show_contents(Conts),
-,
-    clear,
-    fase3Action,
-    ler_arquivo("historia/Fase_3_4.txt",Conts),
-    show_contents(Conts),
-  
-    clear,
-    sleep(5),
-    mensagem_vencedor.
-
-
-
+    ler_arquivo("historia/Fase_3_4.txt",P),
+    show_contents(P).
 
 
 fase1Action:-
      b_setval(monstroHP, 120),
      b_setval(monstroDano, 40),
      b_setval(monstroDefesa, 12),
-     b_setval(fase, 1),
      quiz1(X),
      batalha(X).
 
@@ -371,7 +384,6 @@ fase2Action:-
      b_setval(monstroHP, 140),
      b_setval(monstroDano, 50),
      b_setval(monstroDefesa, 22),
-     b_setval(fase, 2),
      b_setval(hp, 120),
      quiz2(X),
      batalha(X).
@@ -380,7 +392,6 @@ fase3Action:-
      b_setval(monstroHP, 160),
      b_setval(monstroDano, 60),
      b_setval(monstroDefesa, 32),
-     b_setval(fase, 3),
      b_setval(hp, 140),
      quiz3(X),
      batalha(X).
