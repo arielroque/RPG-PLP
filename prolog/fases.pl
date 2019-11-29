@@ -9,14 +9,16 @@ fase1:-
     path(fase11,R),
     ler_arquivo(R,Conts),
     show_contents(Conts),
-    get_single_char(_),
+    write("Aperte qualquer tecla seguida de um . para continuar"),
+    read(_),
     clear,
     path(fase12,R),
     ler_arquivo(R,Conts),
     show_contents(Conts),
-    get_single_char(_),
+    write("Aperte qualquer tecla seguida de um . para continuar"),
+    read(_),
     clear,
-    %batalha(Jogador,goblin,RR),
+    batalha(quiz1),
     path(fase13,R),
     ler_arquivo(R,Conts),
     show_contents(Conts),
@@ -25,7 +27,7 @@ fase1:-
     path(fase14,R),
     ler_arquivo(R,Conts),
     show_contents(Conts),
-    get_single_char(_),
+    read(_),
     clear.
 
 
@@ -34,15 +36,17 @@ fase1Escolha(Opc):-
     path(fase131,R),
     ler_arquivo(R,Conts),
     show_contents(Conts),
-    get_single_char(_),
-    %batalha(Jogador,goblinForte,RJogador),
+    write("Aperte qualquer tecla seguida de um . para continuar"),
+    read(_),
+    batalha(quiz2),
     clear.
 
 fase1Escolha:-
     path(fase132,R),
     ler_arquivo(R,Const),
     show_contents(Conts),
-    get_single_char(_),
+    write("Aperte qualquer tecla seguida de um . para continuar"),
+    read(_),
     clear.
     
 
@@ -50,9 +54,9 @@ fase2:-
     path(fase21,R),
     ler_arquivo(R,Conts),
     show_contents(Conts),
-    get_single_char(_),
+    read(_),
     clear,
-    %batalha(Jogador,lobo,RR),
+    batalha(quiz2),
     path(fase22,R),
     ler_arquivo(R,Conts),
     show_contents(Conts),
@@ -61,7 +65,8 @@ fase2:-
     path(fase23,R),
     ler_arquivo(R,Conts),
     show_contents(Conts),
-    get_single_char(_),
+    write("Aperte qualquer tecla seguida de um . para continuar"),
+    read(_),
     clear.
 
 
@@ -70,39 +75,45 @@ fase2Escolha(Opc):-
     path(fase221,R),
     ler_arquivo(R,Conts),
     show_contents(Conts),
-    get_single_char(_),
-    %batalha(Jogador,loboForte,RJogador),
+    write("Aperte qualquer tecla seguida de um . para continuar"),
+    read(_),
+    batalha(quiz2),
     clear.
 fase2Escolha(Opc):-
     path(fase222,R),
     ler_arquivo(R,Const),
     show_contents(Conts),
-    get_single_char(_),
+    write("Aperte qualquer tecla seguida de um . para continuar"),
+    read(_),
     clear.
 
 fase3:-
     path(fase31,R),
     ler_arquivo(R,Conts),
     show_contents(Conts),
-    get_single_char(_),
+    write("Aperte qualquer tecla seguida de um . para continuar"),
+    read(_),
     clear,
-    %batalha(Jogador,orc,RR),
+    batalha(quiz3),
     path(fase32,R),
     ler_arquivo(R,Conts),
     show_contents(Conts),
-    get_single_char(_),
+    write("Aperte qualquer tecla seguida de um . para continuar"),
+    read(_),
     clear,
-    %batalha(RR,orcForte,RJogador),
+    batalha(quiz3),
     path(fase33,R),
     ler_arquivo(R,Conts),
     show_contents(Conts),
-    get_single_char(_),
+    write("Aperte qualquer tecla seguida de um . para continuar"),
+    read(_),
     clear,
-    %batalha(RR,cavaleiroNegro,RJogador),
+    batalha(quiz3),
     path(fase34,R),
     ler_arquivo(R,Conts),
     show_contents(Conts),
-    get_single_char(_),
+    write("Aperte qualquer tecla seguida de um . para continuar"),
+    read(_),
     clear.
     %finalizaJogo
 

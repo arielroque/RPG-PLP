@@ -26,6 +26,20 @@ mensagem_taverna:-
     ,writeln("               I II__I  I     XXXXXXX     I")
     ,writeln("            ~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~").
 
+
+titulo:-
+    writeln("██████╗ ██╗     ██████╗      █████╗ ██████╗ ██╗   ██╗███████╗███╗   ██╗████████╗"),
+    writeln("██╔══██╗██║     ██╔══██╗    ██╔══██╗██╔══██╗██║   ██║██╔════╝████╗  ██║╚══██╔══╝"),
+    writeln("██████╔╝██║     ██████╔╝    ███████║██║  ██║██║   ██║█████╗  ██╔██╗ ██║   ██║   "),
+    writeln("██╔═══╝ ██║     ██╔═══╝     ██╔══██║██║  ██║╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║   "),
+    writeln("██║     ███████╗██║         ██║  ██║██████╔╝ ╚████╔╝ ███████╗██║ ╚████║   ██║   "),
+    writeln("╚═╝     ╚══════╝╚═╝         ╚═╝  ╚═╝╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝   "),
+    writeln("                                                                                ").
+
+
+
+
+
 mensagem_derrota:-
     writeln(" ▄████  ▄▄▄       ███▄ ▄███▓▓█████     ▒█████   ██▒   █▓▓█████  ██▀███")
     ,sleep(0.05),
@@ -126,6 +140,36 @@ chefe:-
     ,writeln("'   '  `\n").
 
 
+creditos:-
+    clear,
+    writeln("|-----------------------------------------------------------------------------|"),
+	writeln("|                                 PLP 2019.2                                  |"),
+	writeln("|                            Everton L. G. Alves                              |"),
+	writeln("|                                                                             |"),
+	writeln("|                                  Grupo:                                     |"),
+	writeln("|                               Ariel Roque                                   |"),
+	writeln("|                           Brener Nosse Quevedo                              |"),
+	writeln("|                          Matheus Henrique Justino                           |"),
+	writeln("|                                Igor Lima                                    |"),
+	writeln("|-----------------------------------------------------------------------------|"),
+    sleep(4),
+    clear,
+    menu.
+
+menu:-
+    writeln("|-----------------------------------------------------------------------------|")
+   ,writeln("|                                 Menu                                        |")
+   ,writeln("|                           [1] Iniciar Jogo                                  |")
+   ,writeln("|                           [2] Ranking                                       |")
+   ,writeln("|                           [3] Créditos                                      |")
+   ,writeln("|                           [0] Sair do Jogo                                  |")
+   ,writeln("|-----------------------------------------------------------------------------|"),
+   writeln("Opcao:"),
+   read(Opcao),
+   selecionar_opcao(Opcao).
+
+
+
 %ListaDePerguntas__________________________________________________________________________________________________ListaDePerguntas
 
 quiz1(["perguntas/fase1-1.txt","perguntas/fase1-2.txt","perguntas/fase1-3.txt", "perguntas/fase1-4.txt", "perguntas/fase1-5.txt"]).
@@ -146,7 +190,7 @@ batalha([]):-
 
 proximaFase:-
     b_getval(fase, F),
-     (F =:= 1 -> fase2;
+     (F =:= 1 -> fase1Action;
       F =:= 2 -> fase3;
       F =:= 3 -> mensagem_vencedor,menu
      ).
@@ -163,8 +207,8 @@ batalha([H|T]):-
      danoMonstro),
     b_getval(hp, U),
     b_getval(monstroHP, R),
-    (U =< 0 -> sleep(2),clear,mensagem_derrota,menu;
-     R =< 0 -> proximaFase;
+    (U =< 0 -> sleep(2),clear,perdeu,menu;
+     R =< 0 -> clear, proximaFase;
      batalha(T)
     ).
 
@@ -193,14 +237,16 @@ mostrar_HP:-
 
 
 iniciar_jogo:-
-    %setando as variaveis globais
+    %setando_as_variaveis_globais
     b_setval(hp, 100),
-    b_setval(dano, 15),
+    b_setval(dano, 90),
     b_setval(defesa, 12),
 
     ler_arquivo("historia/Introducao.txt",A),
     show_contents(A),
-    sleep(10),
+    sleep(4),
+    nl,
+  
     partida.
     
 partida:-
@@ -214,7 +260,106 @@ partida:-
      Op =:= 4 -> fase4;
      Op =:= 5 -> halt). 
 
+%DEFINIÇÃO_DAS_FASES
+
+
 fase1:-
+    ler_arquivo("historia/Fase_1_1.txt",A),
+    show_contents(A),
+    sleep(2),
+    clear,
+    ler_arquivo("historia/Fase_1_2.txt",B),
+    show_contents(B),
+    sleep(2),
+    clear,
+    fase1Action,
+    sleep(2),
+    clear,
+    ler_arquivo("historia/Fase_1_3.txt",C),
+    show_contents(C),
+    sleep(4),
+    read(Opc),
+    fase1Escolha(Opc),
+    ler_arquivo("historia/Fase_1_4.txt",D),
+    show_contents(D),
+    read(_),
+    clear.
+
+
+fase1Escolha(Opc):-
+    Opc =:= 2,
+    ler_arquivo("historia/Fase_1_3_1.txt",Conts),
+    show_contents(Conts),
+    sleep(4),
+    clear,
+    fase1Action,
+    clear.
+
+fase1Escolha(Opc):-
+    Opc =:= 1,
+    ler_arquivo("historia/Fase_1_3_2.txt",Const),
+    show_contents(Conts),
+    clear.
+    
+
+fase2:-
+    ler_arquivo("historia/Fase_2_1.txt",Conts),
+    show_contents(Conts),
+    read(_),
+    clear,
+    fase2Action,
+    clear,
+    ler_arquivo("historia/Fase_2_2.txt",Conts),
+    show_contents(Conts),
+    read(Opc),
+    fase2Escolha(Opc),
+    ler_arquivo("historia/Fase_2_3.txt",Conts),
+    show_contents(Conts),
+   
+    clear.
+
+
+fase2Escolha(Opc):-
+    Opc =:= 1,
+    ler_arquivo("historia/Fase_2_2_1.txt",Conts),
+    show_contents(Conts),
+
+    fase2Action,
+    clear.
+fase2Escolha(Opc):-
+    ler_arquivo("historia/Fase_2_2_2.txt",Const),
+    show_contents(Conts),
+
+    clear.
+
+fase3:-
+    ler_arquivo("historia/Fase_3_1.txt",Conts),
+    show_contents(Conts),
+ 
+    clear,
+    fase3Action,
+    ler_arquivo("historia/Fase_3_2.txt",Conts),
+    show_contents(Conts),
+
+    clear,
+    fase3Action,
+    ler_arquivo("historia/Fase_3_3.txt",Conts),
+    show_contents(Conts),
+,
+    clear,
+    fase3Action,
+    ler_arquivo("historia/Fase_3_4.txt",Conts),
+    show_contents(Conts),
+  
+    clear,
+    sleep(5),
+    mensagem_vencedor.
+
+
+
+
+
+fase1Action:-
      b_setval(monstroHP, 120),
      b_setval(monstroDano, 40),
      b_setval(monstroDefesa, 12),
@@ -222,7 +367,7 @@ fase1:-
      quiz1(X),
      batalha(X).
 
-fase2:-
+fase2Action:-
      b_setval(monstroHP, 140),
      b_setval(monstroDano, 50),
      b_setval(monstroDefesa, 22),
@@ -231,7 +376,7 @@ fase2:-
      quiz2(X),
      batalha(X).
 
-fase3:-
+fase3Action:-
      b_setval(monstroHP, 160),
      b_setval(monstroDano, 60),
      b_setval(monstroDefesa, 32),
@@ -256,9 +401,9 @@ taverna:-
     read(Aux),
     (Aux =:= 1 -> nl, ler_arquivo("historia/Aproveitar_noite.txt", X), 
         clear,
-        show_contents(X), sleep(4),
-        clear, ler_arquivo("historia/Descansar.txt", Y),
-        show_contents(Y), sleep(4), b_setval(hp, 100),clear, partida;
+        show_contents(X),
+        read(_), clear, ler_arquivo("historia/Descansar.txt", Y),
+        show_contents(Y), b_setval(hp, 100),read(_),clear, partida;
 
     Aux =:= 2 -> clear, partida).
 
@@ -267,23 +412,6 @@ ranking:-
     sleep(1),
     write("Ranking").
 
-creditos:-
-    loading,
-    sleep(2),
-    clear,
-    writeln("|-----------------------------------------------------------------------------|"),
-	writeln("|                                 PLP 2019.2                                  |"),
-	writeln("|                            Everton L. G. Alves                              |"),
-	writeln("|                                                                             |"),
-	writeln("|                                  Grupo:                                     |"),
-	writeln("|                               Ariel Roque                                   |"),
-	writeln("|                           Brener Nosse Quevedo                              |"),
-	writeln("|                          Matheus Henrique Justino                           |"),
-	writeln("|                                Igor Lima                                    |"),
-	writeln("|-----------------------------------------------------------------------------|"),
-    sleep(4),
-    clear,
-    menu.
 
 
 
@@ -303,17 +431,6 @@ selecionar_opcao(_):-
        writeln("Opção Inválida"),
        menu.
 
-menu:-
-    writeln("|-----------------------------------------------------------------------------|")
-   ,writeln("|                                 Menu                                        |")
-   ,writeln("|                           [1] Iniciar Jogo                                  |")
-   ,writeln("|                           [2] Ranking                                       |")
-   ,writeln("|                           [3] Créditos                                      |")
-   ,writeln("|                           [0] Sair do Jogo                                  |")
-   ,writeln("|-----------------------------------------------------------------------------|"),
-   writeln("Opcao:"),
-   read(Opcao),
-   selecionar_opcao(Opcao).
 
 
 clear:- write('\33\[2J').
@@ -344,14 +461,9 @@ monstroHP(A).
 monstroDano(B).
 monstroDefesa(C).
 
-fillHP() :-
-    atributos(_, DANO, DEFESA),
-    HP = 100,
-    retract(atributos(_, _,_)),
-    asserta(atributos(HP, DANO, DEFESA)).
+
 
 perdeu :-
-    writeln("Não foi dessa vez, você perdeu!"),
     mensagem_derrota,
     sleep(4),
     clear,
@@ -361,11 +473,8 @@ perdeu :-
 %ROLAR_DADOS
 
 main:-
-    loading,
+    titulo,
     sleep(2),
-    %batalha(quiz1),
-    sleep(5),
-    %mensagem_taverna,
     clear,
     menu.
 
