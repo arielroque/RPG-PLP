@@ -2,6 +2,7 @@
 :- use_module(leitorArquivos).
 :- use_module(quiz).
 :- use_module(fases).
+:- use_module(library(random)).
 
 
 
@@ -378,7 +379,8 @@ fase1Action:-
      b_setval(monstroDano, 40),
      b_setval(monstroDefesa, 12),
      quiz1(X),
-     batalha(X).
+     random_permutation(X,L),
+     batalha(L).
 
 fase2Action:-
      b_setval(monstroHP, 140),
@@ -386,7 +388,8 @@ fase2Action:-
      b_setval(monstroDefesa, 22),
      b_setval(hp, 120),
      quiz2(X),
-     batalha(X).
+     random_permutation(X,L),
+     batalha(L).
 
 fase3Action:-
      b_setval(monstroHP, 160),
@@ -394,7 +397,8 @@ fase3Action:-
      b_setval(monstroDefesa, 32),
      b_setval(hp, 140),
      quiz3(X),
-     batalha(X).
+     random_permutation(X,L),
+     batalha(L).
 
 fase4:-
     ler_arquivo("historia/Andar sem rumo.txt", A),
